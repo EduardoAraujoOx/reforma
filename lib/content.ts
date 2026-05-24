@@ -21,20 +21,18 @@ export interface ContentItem {
 }
 
 export const destaque: ContentItem = {
-  slug: "cgibs-guia-fiscalizacao-icms-2026",
-  tag: "CG-IBS · Alerta Operacional",
-  titulo: "CG-IBS orienta estados a reforçarem fiscalização do ICMS até dezembro de 2026",
-  prazo: "31 dez 2026",
-  janela: "~221 dias",
-  impacto: "R$ 9,8 bi",
+  slug: "cgibs-guia-impactos-administrativos",
+  tag: "CG-IBS · Guia Orientativo",
+  titulo: "Guia Orientativo para Impactos Administrativos da Reforma Tributária",
+  subtitulo: "Orientações práticas para Secretarias de Fazenda na adaptação à EC 132/2023 — dimensões institucional, operacional e de pessoal",
   porQueImporta:
     "O Guia de Orientações do Pré-CG-IBS alerta que a arrecadação de ICMS até 31/12/2026 serve de base de cálculo para a alíquota-padrão do IBS a partir de 2029. Estados que perderem receita de ICMS nesse período fixarão uma alíquota menor de IBS, reduzindo permanentemente sua fatia na arrecadação compartilhada. Para o ES, que tem no setor atacadista 29% de toda a arrecadação do ICMS — com risco de perda de R$ 9,8 bilhões até 2033 —, este alerta é de máxima prioridade para o Tesouro Estadual.",
-  fonte: "Comitê Gestor do IBS (cgibs.gov.br) · Pré-CG-IBS",
-  formato: "Guia / Portal Web",
-  tema: "CG-IBS · Fiscalização",
+  fonte: "Comitê Gestor do IBS · Pré-CG-IBS",
+  formato: "Guia Técnico",
+  tema: "CG-IBS · Gestão Administrativa",
   profundidade: "Aprofundado",
-  data: "mai 2026",
-  url: "https://www.cgibs.gov.br/pre-comite-gestor-lanca-2-edicao-atualizada-do-guia-de-orientacoes-para-impactos-administrativos-da-reforma-tributaria",
+  data: "fev 2026",
+  url: "https://cgibs.gov.br/upload/arquivos/202602/11155827-gt-08-guia-orientativo-para-impactos-administrativos-da-reforma-tributaria-v2-2.pdf",
 };
 
 export const base: ContentItem[] = [

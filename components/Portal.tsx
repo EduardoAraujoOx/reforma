@@ -146,11 +146,6 @@ export default function Portal() {
   const restEstudos     = estudos.slice(2);
   const [leadRadar, secondRadar, ...restRadar] = radar;
 
-  const STATS = [
-    { label: "Prazo crítico",  value: destaque.prazo  ?? "31 dez 2026" },
-    { label: "Dias restantes", value: destaque.janela  ?? "~221 dias" },
-    { label: "Risco ES",       value: destaque.impacto ?? "R$ 9,8 bi" },
-  ];
 
   return (
     <div style={{ background: T.CREAM_LIGHT, minHeight: "100vh", color: T.INK }}>
@@ -165,7 +160,7 @@ export default function Portal() {
           padding: "14px 56px", fontFamily: "var(--ff-mono)", fontSize: 11,
           letterSpacing: "0.18em", textTransform: "uppercase",
           color: "rgba(11,37,53,0.55)", borderBottom: `1px solid ${T.RULE}` }}>
-          <span>Vitória · ES &nbsp;·&nbsp; Boletim 023/2026 &nbsp;·&nbsp; sex, 23 mai 2026</span>
+          <span>Vitória · ES &nbsp;·&nbsp; sáb, 24 mai 2026</span>
           <span className="dateline-right" style={{ color: T.GOLD }}>
             ● Radar ativo · 12 atualizações esta semana
           </span>
@@ -190,13 +185,20 @@ export default function Portal() {
             </div>
 
             <h1 style={{ fontFamily: "var(--ff-display)",
-              fontSize: "clamp(34px,5vw,62px)", fontWeight: 700,
-              lineHeight: 1.04, letterSpacing: "-0.012em",
-              margin: "0 0 28px", color: T.NAVY }}>
+              fontSize: "clamp(26px,3.2vw,42px)", fontWeight: 700,
+              lineHeight: 1.08, letterSpacing: "-0.012em",
+              margin: "0 0 14px", color: T.NAVY }}>
               {destaque.titulo}
             </h1>
 
-            <p style={{ fontFamily: "var(--ff-reading)", fontSize: 18, lineHeight: 1.55,
+            {destaque.subtitulo && (
+              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 16, lineHeight: 1.5,
+                color: T.MID, margin: "0 0 20px", maxWidth: 600 }}>
+                {destaque.subtitulo}
+              </p>
+            )}
+
+            <p style={{ fontFamily: "var(--ff-reading)", fontSize: 17, lineHeight: 1.55,
               color: "#2b2520", maxWidth: 680, margin: "0 0 32px" }}>
               <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
                 letterSpacing: "0.2em", textTransform: "uppercase",
@@ -205,29 +207,6 @@ export default function Portal() {
               </span>
               {destaque.porQueImporta}
             </p>
-
-            {/* Stats */}
-            <div className="hero-stats" style={{ display: "flex", alignItems: "stretch",
-              marginBottom: 32, borderLeft: `3px solid ${T.GOLD}`, paddingLeft: 20 }}>
-              {STATS.map(({ label, value }, i) => (
-                <div key={label} style={{ display: "flex", alignItems: "stretch" }}>
-                  <div style={{ paddingRight: 24 }}>
-                    <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                      letterSpacing: "0.2em", textTransform: "uppercase",
-                      color: "rgba(11,37,53,0.6)", marginBottom: 6 }}>
-                      {label}
-                    </div>
-                    <div style={{ fontFamily: "var(--ff-display)",
-                      fontSize: "clamp(16px,2vw,26px)", color: T.NAVY, lineHeight: 1 }}>
-                      {value}
-                    </div>
-                  </div>
-                  {i < STATS.length - 1 && (
-                    <div style={{ width: 1, background: T.RULE, marginRight: 24, alignSelf: "stretch" }} />
-                  )}
-                </div>
-              ))}
-            </div>
 
             {/* CTAs */}
             <div style={{ display: "flex", gap: 16, alignItems: "center", flexWrap: "wrap",
