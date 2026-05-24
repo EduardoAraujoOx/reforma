@@ -10,21 +10,36 @@ const NAV = [
   { label: "Radar",                 href: "#radar"   },
 ];
 
-function ShieldLogo({ height = 36 }: { height?: number }) {
-  const w = Math.round(height * 0.7);
+function Brasao({ height = 32 }: { height?: number }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    const h = height, w = Math.round(height * 0.72);
+    return (
+      <svg width={w} height={h} viewBox="0 0 36 50" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style={{ flexShrink: 0, opacity: 0.88 }}>
+        <path d="M2 2 H34 V30 C34 42 18 48 18 48 C18 48 2 42 2 30 Z"
+          stroke="white" strokeWidth="1.8" fill="rgba(255,255,255,0.08)" strokeLinejoin="round" />
+        <line x1="2" y1="18" x2="34" y2="18" stroke="white" strokeWidth="1" opacity=".55" />
+        <ellipse cx="18" cy="11" rx="5" ry="3.5" fill="white" opacity=".92" />
+        <circle cx="22" cy="8.5" r="2.5" fill="white" opacity=".92" />
+        <path d="M13 11 C9 8 7 11 9 14 C11 12 13 12 13 11Z" fill="white" opacity=".85" />
+        <path d="M13 12 L8 16 M13 11 L7 13" stroke="white" strokeWidth="0.9" opacity=".65" strokeLinecap="round" />
+        <text x="9" y="36" fontSize="6" fill="white" opacity=".72">★</text>
+        <text x="15" y="36" fontSize="6" fill="white" opacity=".72">★</text>
+        <text x="21" y="36" fontSize="6" fill="white" opacity=".72">★</text>
+        <text x="18" y="45" fontSize="6.5" fill="white" opacity=".6"
+          textAnchor="middle" fontFamily="system-ui" fontWeight="700" letterSpacing="0.08em">ES</text>
+      </svg>
+    );
+  }
   return (
-    <svg width={w} height={height} viewBox="0 0 28 40" fill="none"
-      xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
-      <path d="M2 2 H26 V24 C26 34 14 39 14 39 C14 39 2 34 2 24 Z"
-        fill={T.TEAL} stroke={T.GOLD} strokeWidth="1.4" strokeLinejoin="round" />
-      <line x1="2" y1="14" x2="26" y2="14" stroke={T.GOLD_LIGHT} strokeWidth="0.8" opacity=".5" />
-      <text x="14" y="10" fontSize="7" fill={T.GOLD_LIGHT} textAnchor="middle"
-        fontFamily="ui-monospace,Menlo,monospace" fontWeight="700" letterSpacing="0.5">ES</text>
-      <text x="14" y="28" fontSize="5.5" fill={T.WHITE} textAnchor="middle"
-        fontFamily="ui-monospace,Menlo,monospace" opacity=".85">SEFAZ</text>
-      <text x="14" y="34.5" fontSize="4.5" fill={T.GOLD_LIGHT} textAnchor="middle"
-        fontFamily="ui-monospace,Menlo,monospace" opacity=".7" letterSpacing="0.2">TESOURO</text>
-    </svg>
+    <img
+      src="https://cdn.es.gov.br/images/logo/governo/brasao/center-white/Brasao_Governo_800.png"
+      alt="Brasão do Governo do Espírito Santo"
+      height={height}
+      style={{ width: "auto", flexShrink: 0, opacity: 0.92 }}
+      onError={() => setFailed(true)}
+    />
   );
 }
 
@@ -40,7 +55,7 @@ export default function Header() {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between",
               padding: "20px 20px 18px", borderBottom: `1px solid rgba(255,255,255,.1)` }}>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <ShieldLogo height={34} />
+                <Brasao height={34} />
                 <div>
                   <div style={{ fontSize: 14, fontWeight: 700, color: T.WHITE,
                     fontFamily: "var(--ff-display)", letterSpacing: "-0.01em" }}>
@@ -88,7 +103,7 @@ export default function Header() {
           {/* Brand */}
           <a href="#" style={{ display: "flex", alignItems: "center", gap: 12,
             flexShrink: 0, textDecoration: "none" }}>
-            <ShieldLogo height={36} />
+            <Brasao height={36} />
             <div>
               <div style={{ fontSize: 16, fontWeight: 700, color: T.WHITE,
                 lineHeight: 1.1, fontFamily: "var(--ff-display)", letterSpacing: "-0.01em" }}>
