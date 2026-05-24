@@ -283,7 +283,7 @@ export default function Portal() {
         <div className="section-inner">
           <SectionHead
             kicker="01 · Base da Reforma"
-            title="O terreno legal — onde tudo começa."
+            title="Legislação, atos normativos e documentos oficiais"
             lede="Emendas, leis complementares, decretos e atos do Comitê Gestor. Cada documento catalogado com tema, formato e nível de profundidade — para que o servidor encontre o que precisa sem garimpar."
             right={
               <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.NAVY,
@@ -309,7 +309,14 @@ export default function Portal() {
                 color: "rgba(11,37,53,0.78)", margin: "0 0 26px" }}>
                 {featuredBase.subtitulo}
               </p>
-              <div style={{ marginTop: "auto", display: "flex", alignItems: "center", gap: 22,
+              {featuredBase.porQueImporta && (
+                <p style={{ fontFamily: "var(--ff-reading)", fontSize: 15, lineHeight: 1.6,
+                  color: "rgba(11,37,53,0.65)", margin: "0 0 26px",
+                  paddingLeft: 14, borderLeft: `3px solid ${T.RULE}` }}>
+                  {featuredBase.porQueImporta}
+                </p>
+              )}
+              <div style={{ marginTop: 0, display: "flex", alignItems: "center", gap: 22,
                 paddingTop: 16, borderTop: `1px solid ${T.RULE}`, flexWrap: "wrap" }}>
                 {featuredBase.profundidade && <ProfundidadePip level={featuredBase.profundidade} />}
                 <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
@@ -379,8 +386,8 @@ export default function Portal() {
         <div className="estudos-inner">
           <SectionHead
             kicker="02 · Estudos e Capacitação"
-            title="Material para entender — e para operar."
-            lede="Curadoria de vídeos, palestras, artigos e apresentações. Cada item indica formato e nível de profundidade para que o servidor encontre o caminho certo."
+            title="Vídeos, estudos e material para capacitação técnica"
+            lede="Curadoria de vídeos institucionais, palestras, notas técnicas e estudos de referência sobre a Reforma Tributária do Consumo."
             dark
             right={
               <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.GOLD_LIGHT,
@@ -390,70 +397,64 @@ export default function Portal() {
             }
           />
 
-          {/* 2 featured viewer cards */}
-          <div className="estudos-cards">
-            {featuredEstudos.map((item) => (
-              <div key={item.slug} onClick={() => setModal(item)}
-                style={{ border: "1px solid rgba(255,255,255,0.12)",
-                  background: T.NAVY_SOFT, cursor: "pointer" }}>
-                {/* Viewer frame */}
-                <div style={{ aspectRatio: "16/9",
-                  background: `linear-gradient(135deg, ${T.NAVY_SOFT} 0%, #1f4a5e 100%)`,
-                  display: "grid", placeItems: "center", position: "relative",
-                  borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
-                  {/* Corner brackets */}
-                  {([
-                    { top: 10,    left: 10,    borderTop: `1px solid ${T.GOLD_LIGHT}`,    borderLeft:   `1px solid ${T.GOLD_LIGHT}` },
-                    { top: 10,    right: 10,   borderTop: `1px solid ${T.GOLD_LIGHT}`,    borderRight:  `1px solid ${T.GOLD_LIGHT}` },
-                    { bottom: 10, left: 10,    borderBottom: `1px solid ${T.GOLD_LIGHT}`, borderLeft:   `1px solid ${T.GOLD_LIGHT}` },
-                    { bottom: 10, right: 10,   borderBottom: `1px solid ${T.GOLD_LIGHT}`, borderRight:  `1px solid ${T.GOLD_LIGHT}` },
-                  ] as React.CSSProperties[]).map((s, k) => (
-                    <div key={k} style={{ position: "absolute", width: 14, height: 14, ...s }} />
-                  ))}
-                  <div style={{ display: "grid", placeItems: "center", gap: 14 }}>
-                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                      <circle cx="24" cy="24" r="22" stroke={T.GOLD_LIGHT} strokeWidth="1.2" opacity="0.55" />
-                      <path d="M20 17 L33 24 L20 31 Z" fill={T.GOLD_LIGHT} />
-                    </svg>
-                    <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                      letterSpacing: "0.22em", textTransform: "uppercase",
-                      color: T.GOLD_LIGHT, fontWeight: 700 }}>
-                      {item.formato}
-                    </span>
+          {/* Video carousel */}
+          <div style={{ marginTop: 36, marginLeft: -56, marginRight: -56 }}>
+            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.22em",
+              textTransform: "uppercase", color: T.GOLD_LIGHT, fontWeight: 700,
+              marginBottom: 14, paddingLeft: 56 }}>
+              ▶ Vídeos em destaque
+            </div>
+            <div style={{ overflowX: "auto", paddingLeft: 56, paddingBottom: 16,
+              scrollbarWidth: "none" }}>
+              <div style={{ display: "flex", gap: 20, width: "max-content", paddingRight: 56 }}>
+                {estudos.filter(e => e.youtubeId).map((item) => (
+                  <div key={item.slug} onClick={() => setModal(item)}
+                    style={{ width: 272, flexShrink: 0, cursor: "pointer",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      background: T.NAVY_SOFT }}>
+                    <div style={{ position: "relative", width: 272, height: 153, overflow: "hidden" }}>
+                      <img
+                        src={`https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`}
+                        alt={item.titulo}
+                        style={{ width: "100%", height: "100%", objectFit: "cover",
+                          display: "block" }}
+                      />
+                      <div style={{ position: "absolute", inset: 0,
+                        display: "grid", placeItems: "center",
+                        background: "rgba(11,37,53,0.28)" }}>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+                          <circle cx="22" cy="22" r="20" fill="rgba(0,0,0,0.55)"
+                            stroke="rgba(232,184,75,0.7)" strokeWidth="1.2" />
+                          <path d="M18 15 L31 22 L18 29 Z" fill="#E8B84B" />
+                        </svg>
+                      </div>
+                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0,
+                        height: 3, background: "rgba(201,148,26,0.9)" }} />
+                    </div>
+                    <div style={{ padding: "16px 18px 18px" }}>
+                      {item.tema && (
+                        <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9,
+                          letterSpacing: "0.22em", textTransform: "uppercase",
+                          color: "rgba(232,184,75,0.8)", fontWeight: 700, marginBottom: 8 }}>
+                          {item.tema}
+                        </div>
+                      )}
+                      <h4 style={{ fontFamily: "var(--ff-display)", fontSize: 15,
+                        lineHeight: 1.25, margin: "0 0 10px", color: "#fff",
+                        display: "-webkit-box", WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                        {item.titulo}
+                      </h4>
+                      <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
+                        letterSpacing: "0.14em", textTransform: "uppercase",
+                        color: "rgba(255,255,255,0.45)" }}>
+                        {item.fonte.split("—")[0].trim()} · {item.data}
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ position: "absolute", bottom: 0, left: 0, right: 0,
-                    height: 4, background: T.GOLD, opacity: 0.85 }} />
-                </div>
-                <div style={{ padding: "24px 26px 26px" }}>
-                  <div style={{ display: "flex", gap: 10, marginBottom: 12, alignItems: "center", flexWrap: "wrap" }}>
-                    <StatusFlag kind="destaque" />
-                    {item.tema && <TemaPill tema={item.tema} dark />}
-                  </div>
-                  <h3 style={{ fontFamily: "var(--ff-display)", fontSize: 24,
-                    lineHeight: 1.18, margin: "0 0 12px", color: "#fff" }}>
-                    {item.titulo}
-                  </h3>
-                  <p style={{ fontFamily: "var(--ff-reading)", fontSize: 15, lineHeight: 1.55,
-                    color: "rgba(255,255,255,0.72)", margin: "0 0 18px" }}>
-                    {item.subtitulo}
-                  </p>
-                  <div style={{ display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap",
-                    paddingTop: 14, borderTop: "1px solid rgba(255,255,255,0.12)" }}>
-                    {item.profundidade && <ProfundidadePip level={item.profundidade} dark />}
-                    <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                      letterSpacing: "0.18em", textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.55)" }}>
-                      {item.fonte}
-                    </span>
-                    <span style={{ marginLeft: "auto", fontFamily: "var(--ff-mono)", fontSize: 10,
-                      letterSpacing: "0.18em", textTransform: "uppercase",
-                      color: "rgba(255,255,255,0.55)" }}>
-                      {item.data}
-                    </span>
-                  </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
 
           {/* Index of remaining */}
@@ -466,11 +467,11 @@ export default function Portal() {
                 Índice da biblioteca
               </span>
             </div>
-            {restEstudos.map((item, i) => (
+            {estudos.map((item, i) => (
               <div key={item.slug} onClick={() => setModal(item)} className="estudos-index-row">
                 <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
                   color: T.GOLD_LIGHT, letterSpacing: "0.18em", fontWeight: 700 }}>
-                  {String(i + 3).padStart(2, "0")}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
                   <div style={{ fontFamily: "var(--ff-display)", fontSize: 19,
@@ -502,7 +503,7 @@ export default function Portal() {
         <div className="section-inner">
           <SectionHead
             kicker="03 · Radar Tesouro"
-            title="O que está se mexendo esta semana."
+            title="Últimas notícias"
             lede="Arrecadação, transição fiscal, IBS, CBS, FNDR, Comitê Gestor e impactos nas finanças do Espírito Santo. O Radar acompanha o noticiário fiscal pelo olhar do Tesouro Estadual."
             right={
               <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.NAVY,

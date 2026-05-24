@@ -34,7 +34,7 @@ function Brasao({ height = 32 }: { height?: number }) {
   }
   return (
     <img
-      src="https://cdn.es.gov.br/images/logo/governo/brasao/center-white/Brasao_Governo_800.png"
+      src="https://cdn.es.gov.br/images/logo/governo/brasao/center-white/Brasao_Governo_640.png"
       alt="Brasão do Governo do Espírito Santo"
       height={height}
       style={{ width: "auto", flexShrink: 0, opacity: 0.92 }}

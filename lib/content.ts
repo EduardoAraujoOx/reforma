@@ -26,7 +26,7 @@ export const destaque: ContentItem = {
   titulo: "Guia Orientativo para Impactos Administrativos da Reforma Tributária",
   subtitulo: "Orientações práticas para Secretarias de Fazenda na adaptação à EC 132/2023 — dimensões institucional, operacional e de pessoal",
   porQueImporta:
-    "O Guia de Orientações do Pré-CG-IBS alerta que a arrecadação de ICMS até 31/12/2026 serve de base de cálculo para a alíquota-padrão do IBS a partir de 2029. Estados que perderem receita de ICMS nesse período fixarão uma alíquota menor de IBS, reduzindo permanentemente sua fatia na arrecadação compartilhada. Para o ES, que tem no setor atacadista 29% de toda a arrecadação do ICMS — com risco de perda de R$ 9,8 bilhões até 2033 —, este alerta é de máxima prioridade para o Tesouro Estadual.",
+    "O Guia de Orientações do Pré-CG-IBS traz diversas orientações administrativas para Secretarias de Fazenda. Dentre elas, recomenda-se que os Estados elaborem estudo para fixação de sua alíquota-padrão de IBS, utilizando equipes técnicas próprias e/ou consultorias especializadas, com foco em subsidiar o processo legislativo de fixação dessa alíquota em cada ente, com vistas a evitar perda de arrecadação com a Reforma Tributária do Consumo ou mitigar esse risco na transição do atual modelo para o IBS/CBS.",
   fonte: "Comitê Gestor do IBS · Pré-CG-IBS",
   formato: "Guia Técnico",
   tema: "CG-IBS · Gestão Administrativa",
@@ -110,6 +110,36 @@ export const base: ContentItem[] = [
 ];
 
 export const estudos: ContentItem[] = [
+  {
+    slug: "sefaz-es-reforma-tributaria-video-1",
+    tag: "Vídeo",
+    titulo: "Reforma Tributária no ES — Apresentação SEFAZ-ES",
+    subtitulo: "Seminário SEFAZ-ES · 2026",
+    porQueImporta:
+      "Material institucional da SEFAZ-ES sobre a Reforma Tributária, abordando os impactos para o Espírito Santo e as medidas de adaptação do Tesouro Estadual ao novo modelo do IBS/CBS.",
+    fonte: "SEFAZ-ES — YouTube",
+    formato: "Vídeo",
+    tema: "ES · SEFAZ",
+    profundidade: "Introdutório",
+    data: "2026",
+    youtubeId: "1Ya8u41jySs",
+    url: "https://youtu.be/1Ya8u41jySs",
+  },
+  {
+    slug: "sefaz-es-reforma-tributaria-video-2",
+    tag: "Vídeo",
+    titulo: "IBS no Espírito Santo — Seminário Técnico SEFAZ-ES",
+    subtitulo: "Seminário SEFAZ-ES · 2026",
+    porQueImporta:
+      "Seminário técnico da SEFAZ-ES tratando dos impactos operacionais do IBS e CBS para a administração tributária do Espírito Santo e as ações de preparação institucional.",
+    fonte: "SEFAZ-ES — YouTube",
+    formato: "Vídeo",
+    tema: "ES · SEFAZ",
+    profundidade: "Aprofundado",
+    data: "2026",
+    youtubeId: "6cYCdhXC5gQ",
+    url: "https://youtu.be/6cYCdhXC5gQ",
+  },
   {
     slug: "regulamento-ibs-cbs-2026",
     tag: "Vídeo",
