@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Radar da Reforma Tributária — Homepage</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Lora', Georgia, serif; }
+  * { box-sizing: border-box; }
+  .doc-note {
+    font-family: 'Lora', Georgia, serif; color: #2a221c; font-size: 13.5px; line-height: 1.55;
+    background: #fef4a8; padding: 14px 16px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 8px 18px rgba(0,0,0,0.06);
+  }
+  .doc-note h3 { font-family: 'Playfair Display', serif; font-size: 16px; margin: 0 0 6px; color: #1a1410; letter-spacing: -0.01em; }
+  .doc-note .kicker { font-family: ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(11,37,53,0.7); margin-bottom: 8px; font-weight: 700; }
+  .doc-note ul { padding-left: 16px; margin: 6px 0 0; }
+  .doc-note li { margin-bottom: 4px; }
+  .doc-note .one-liner { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: #0B2535; border-left: 2px solid #C9941A; padding-left: 10px; margin-top: 10px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- Canvas + shared -->
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="brazil-radar.jsx"></script>
+  <script type="text/babel" src="portal-data.jsx"></script>
+  <script type="text/babel" src="portal-primitives.jsx"></script>
+
+  <!-- Sections (desktop) -->
+  <script type="text/babel" src="portal-hero.jsx"></script>
+  <script type="text/babel" src="portal-pillars.jsx"></script>
+  <script type="text/babel" src="portal-base.jsx"></script>
+  <script type="text/babel" src="portal-estudos.jsx"></script>
+  <script type="text/babel" src="portal-radar.jsx"></script>
+  <script type="text/babel" src="portal-ciclo.jsx"></script>
+  <script type="text/babel" src="portal-footer.jsx"></script>
+  <script type="text/babel" src="portal-home.jsx"></script>
+
+  <!-- Mobile -->
+  <script type="text/babel" src="portal-home-mobile.jsx"></script>
+
+  <script type="text/babel">
+    const Note = ({ kicker, title, oneLiner, children }) => (
+      <div className="doc-note">
+        {kicker && <div className="kicker">{kicker}</div>}
+        {title && <h3>{title}</h3>}
+        {children}
+        {oneLiner && <div className="one-liner">{oneLiner}</div>}
+      </div>
+    );
+
+    function App() {
+      return (
+        <DesignCanvas
+          title="Radar da Reforma Tributária"
+          subtitle="Homepage completa · variação A (manchete como capa) · desktop + mobile + handoff"
+        >
+          {/* ===== Briefing ===== */}
+          <DCSection id="brief" title="Briefing" subtitle="O que o portal é e o sistema visual que carrega">
+            <DCArtboard id="brief-premissa" label="Premissa" width={520} height={460}>
+              <div style={{ padding: 30, background: "#FAF7F2", height: "100%", color: "#1a1410", fontFamily: "'Lora', Georgia, serif" }}>
+                <div style={{
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "#C9941A", fontWeight: 700, marginBottom: 14,
+                }}>Premissa do portal</div>
+                <h2 style={{
+                  fontFamily: "'Playfair Display', serif", fontSize: 28, lineHeight: 1.15,
+                  margin: "0 0 18px", color: "#0B2535", letterSpacing: "-0.01em",
+                }}>
+                  Um <em>produto institucional simples</em> — para virar referência única do servidor.
+                </h2>
+                <p style={{ fontSize: 15, lineHeight: 1.6, margin: "0 0 14px" }}>
+                  Reunir, organizar e divulgar conteúdo curado sobre a Reforma Tributária com foco
+                  na qualificação dos servidores do Tesouro Estadual e na compreensão dos impactos
+                  fiscais, federativos e operacionais para o Espírito Santo.
+                </p>
+                <p style={{ fontSize: 14, lineHeight: 1.55, color: "rgba(11,37,53,0.7)", margin: 0, fontStyle: "italic" }}>
+                  Curadoria simples e manual. Cada item: título, descrição, fonte, link, formato, tema,
+                  profundidade e data. A sofisticação pode vir depois — o ganho do dia um é dar
+                  visibilidade ao que já existe.
+                </p>
+              </div>
+            </DCArtboard>
+
+            <DCArtboard id="brief-sistema" label="Sistema visual" width={500} height={460}>
+              <div style={{ padding: 30, background: "#0B2535", color: "#fff", height: "100%", fontFamily: "'Lora', Georgia, serif" }}>
+                <div style={{
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "#E8B84B", fontWeight: 700, marginBottom: 18,
+                }}>Sistema visual</div>
+
+                <div style={{ display: "grid", gap: 14, fontSize: 13.5, lineHeight: 1.5 }}>
+                  <div>
+                    <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "#fff", marginBottom: 4 }}>Tipografia</div>
+                    <div style={{ color: "rgba(255,255,255,0.7)" }}>
+                      Playfair Display para títulos (peso editorial). Lora para leitura corrida.
+                      Monospace só para metadados, datelines, kickers — nunca para texto.
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "#fff", marginBottom: 4 }}>Paleta</div>
+                    <div style={{ display: "flex", gap: 8, marginBottom: 6 }}>
+                      {[
+                        ["#0B2535","Navy"],["#1A5068","Teal"],["#C9941A","Gold"],
+                        ["#E8B84B","Gold L"],["#FAF7F2","Cream"],["#F5F0E6","Cream D"],
+                      ].map(([c, n], i) => (
+                        <div key={i} style={{ flex: 1 }}>
+                          <div style={{ height: 22, background: c, border: "1px solid rgba(255,255,255,0.12)" }} />
+                          <div style={{
+                            fontSize: 9, fontFamily: "ui-monospace, Menlo, monospace",
+                            color: "rgba(255,255,255,0.65)", marginTop: 4,
+                            letterSpacing: "0.12em", textTransform: "uppercase",
+                          }}>{n}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "#fff", marginBottom: 4 }}>Ritmo de fundo</div>
+                    <div style={{ color: "rgba(255,255,255,0.7)" }}>
+                      Alterna creme ↔ navy. Cream = leitura (Base, Radar, Sobre).
+                      Navy = ambientes "ativos" (Hero deck, Estudos, Ciclo, Footer).
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "#fff", marginBottom: 4 }}>Metadados visuais</div>
+                    <div style={{ color: "rgba(255,255,255,0.7)" }}>
+                      Cada item carrega: <code style={{color:"#E8B84B"}}>FormatTag</code> (selo gold),
+                      <code style={{color:"#E8B84B"}}> TemaPill</code> e <code style={{color:"#E8B84B"}}>ProfundidadePip</code> (1–3 barras).
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+
+            <DCArtboard id="brief-arquit" label="Arquitetura de conteúdo" width={440} height={460}>
+              <div style={{ padding: 30, background: "#FAF7F2", height: "100%", color: "#1a1410", fontFamily: "'Lora', Georgia, serif" }}>
+                <div style={{
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "#1A5068", fontWeight: 700, marginBottom: 14,
+                }}>Fluxo da homepage</div>
+                <ol style={{ paddingLeft: 0, listStyle: "none", margin: 0, fontSize: 14, lineHeight: 1.55 }}>
+                  {[
+                    ["Hero · manchete da semana", "Com prazo, janela, impacto e radar como insígnia."],
+                    ["Três pilares + totais", "Apresenta o mapa mental do portal."],
+                    ["01 · Base da Reforma", "Documento-destaque + índice numerado."],
+                    ["02 · Estudos e Capacitação", "Dois cartões viewer + índice de biblioteca (navy)."],
+                    ["03 · Radar Tesouro", "Ticker + matéria principal + grade broadsheet."],
+                    ["Ciclo de Palestras", "Próximo evento como peça editorial + agenda."],
+                    ["Curadoria · Sobre", "Quem mantém, como cataloga, como contribuir."],
+                    ["Footer", "Navegação institucional + brasão."],
+                  ].map(([t, d], i) => (
+                    <li key={i} style={{
+                      display: "grid", gridTemplateColumns: "30px 1fr", gap: 10,
+                      paddingBottom: 10, marginBottom: 10,
+                      borderBottom: "1px solid rgba(11,37,53,0.12)",
+                    }}>
+                      <span style={{
+                        fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                        color: "#C9941A", letterSpacing: "0.12em", fontWeight: 700, paddingTop: 2,
+                      }}>{String(i+1).padStart(2,"0")}</span>
+                      <span>
+                        <strong style={{ fontFamily: "'Playfair Display', serif", fontWeight: 600 }}>{t}.</strong>{" "}
+                        <span style={{ color: "rgba(11,37,53,0.7)" }}>{d}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ===== HOMEPAGE COMPLETA ===== */}
+          <DCSection
+            id="home"
+            title="Homepage completa"
+            subtitle="Variação A · desktop 1440 · todas as seções na ordem real">
+
+            <DCArtboard id="home-desktop" label="Desktop · 1440" width={1440} height={5600}>
+              <PortalHomeDesktop />
+            </DCArtboard>
+
+            <DCArtboard id="home-mobile" label="Mobile · 390" width={390} height={3500}>
+              <PortalHomeMobile />
+            </DCArtboard>
+
+            <DCArtboard id="home-notas" label="Notas de leitura" width={340} height={3500}>
+              <div style={{
+                background: "#FAF7F2", height: "100%", padding: 20,
+                fontFamily: "'Lora', Georgia, serif", display: "grid", gap: 12,
+                color: "#1a1410",
+              }}>
+                <Note kicker="Hero" title="Manchete como capa" oneLiner="“A semana entra pela manchete, não pelo mapa.”">
+                  <p style={{ margin: "0 0 6px" }}>
+                    Chip “Em destaque” + tag CG-IBS, manchete Playfair 64px, deck “Por que importa”,
+                    trio prazo · janela · impacto, e linha de metadados (formato · tema · profundidade · data).
+                    O radar à direita vira <em>insígnia datada</em>, não fundo.
+                  </p>
+                  <p style={{ margin: "6px 0 0" }}>
+                    <strong>Em Code:</strong> a manchete vem de <code>PORTAL_DATA.manchete</code> —
+                    todos os metadados que o cadastro pede já estão renderizados.
+                  </p>
+                </Note>
+
+                <Note kicker="Pilares" title="Três áreas, uma página">
+                  <p style={{ margin: 0 }}>
+                    Apresentação direta do mapa mental, com totais (24 docs, 38 materiais, 142 notícias).
+                    Cumpre o papel de “o que tem aqui dentro”. Filetes verticais entre colunas, sem
+                    cards arredondados — fica jornal, não dashboard.
+                  </p>
+                </Note>
+
+                <Note kicker="Base da Reforma" title="Acervo legal" oneLiner="“Documento-destaque + índice numerado.”">
+                  <p style={{ margin: 0 }}>
+                    Coluna esquerda: o item mais importante (LC 214/2025) tratado como matéria.
+                    Direita: índice numerado com selo de formato (EC, LC, PL, RES, DEC), tema, pip de
+                    profundidade e data. Suporta cadastro real do Code: basta entrar um item novo
+                    no array e ele aparece no índice.
+                  </p>
+                </Note>
+
+                <Note kicker="Estudos" title="Biblioteca · ambiente escuro">
+                  <p style={{ margin: 0 }}>
+                    Mudança de fundo para navy marca “mudança de modo”: não estou mais lendo a lei,
+                    estou entrando na sala de estudo. Dois cartões viewer com placeholders de play e
+                    duração, e um índice tabular com filtros (Todos · Vídeos · Artigos · Apresentações · Cursos).
+                  </p>
+                </Note>
+
+                <Note kicker="Radar Tesouro" title="Jornal de notícias fiscais">
+                  <p style={{ margin: 0 }}>
+                    Ticker no topo, matéria líder + secundária, e grade broadsheet com filetes.
+                    Mantém o mesmo vocabulário de kicker · data · fonte que sustenta toda a página.
+                  </p>
+                </Note>
+
+                <Note kicker="Ciclo de Palestras" title="Evento como peça editorial" oneLiner="“A data ocupa a página como uma capa.”">
+                  <p style={{ margin: 0 }}>
+                    Bloco navy com data gigante à esquerda, palestra no centro com avatar do palestrante,
+                    CTA de inscrição à direita. Abaixo, agenda em lista numerada. Resolve o pedido
+                    de “dar visibilidade ao ciclo de palestras” como protagonista.
+                  </p>
+                </Note>
+
+                <Note kicker="Curadoria · Sobre" title="A confiança como produto">
+                  <p style={{ margin: 0 }}>
+                    Coluna de quatro pilares de curadoria + sidebar navy com equipe responsável,
+                    cadência semanal, e-mail de sugestão. Radar pulsa atrás como marca. Termina com
+                    a frase de propósito: memória técnica para 2030.
+                  </p>
+                </Note>
+
+                <Note kicker="Mobile" title="Sem perder a hierarquia">
+                  <p style={{ margin: 0 }}>
+                    Mesmo sistema: kickers, filetes, ProfundidadePip e FormatTag. Pilares viram lista
+                    vertical. Estudos vira navy compacto. Radar mantém matéria líder + lista.
+                    Ciclo concentra em data gigante + título + CTA único.
+                  </p>
+                </Note>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ===== Handoff ===== */}
+          <DCSection id="handoff" title="Handoff para o Claude Code" subtitle="Como traduzir esta peça em produto">
+            <DCArtboard id="handoff-componentes" label="Mapa de componentes" width={600} height={520}>
+              <div style={{ padding: 32, background: "#0B2535", color: "#fff", height: "100%", fontFamily: "'Lora', Georgia, serif" }}>
+                <div style={{
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "#E8B84B", fontWeight: 700, marginBottom: 16,
+                }}>Componentes</div>
+                <ul style={{ paddingLeft: 0, listStyle: "none", margin: 0, fontSize: 13.5, lineHeight: 1.85 }}>
+                  {[
+                    ["<PortalHeader />", "nav institucional + busca"],
+                    ["<PortalHero />", "manchete da semana + radar insígnia"],
+                    ["<PillarsOverview />", "3 áreas + totais"],
+                    ["<BaseDaReforma />", "acervo legal: destaque + índice"],
+                    ["<EstudosECapacitacao />", "biblioteca dark: viewers + index"],
+                    ["<RadarTesouro />", "jornal: ticker + grade broadsheet"],
+                    ["<CicloDePalestras />", "próximo evento + agenda"],
+                    ["<CuradoriaSobre />", "metodologia + contato"],
+                    ["<PortalFooter />", "institucional"],
+                    ["<BrazilRadar size opacity sweep rings/>", "marca visual reusável"],
+                    ["<FormatTag /> <TemaPill /> <ProfundidadePip />", "metadados de catálogo"],
+                  ].map(([c, d], i) => (
+                    <li key={i} style={{
+                      display: "grid", gridTemplateColumns: "1fr auto", gap: 14,
+                      paddingBottom: 6, marginBottom: 6,
+                      borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    }}>
+                      <code style={{ color: "#E8B84B", fontFamily: "ui-monospace, Menlo, monospace", fontSize: 12 }}>{c}</code>
+                      <span style={{ color: "rgba(255,255,255,0.62)", fontFamily: "'Lora', Georgia, serif", fontSize: 12.5 }}>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </DCArtboard>
+
+            <DCArtboard id="handoff-cadastro" label="Modelo de cadastro" width={480} height={520}>
+              <div style={{ padding: 32, background: "#FAF7F2", height: "100%", color: "#1a1410", fontFamily: "'Lora', Georgia, serif" }}>
+                <div style={{
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "#C9941A", fontWeight: 700, marginBottom: 16,
+                }}>Modelo de cadastro</div>
+                <p style={{ fontSize: 14, lineHeight: 1.55, margin: "0 0 16px" }}>
+                  Cada conteúdo no portal — em qualquer das três áreas — segue o mesmo schema:
+                </p>
+                <pre style={{
+                  background: "#0B2535", color: "#E8B84B",
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 12,
+                  padding: 16, margin: 0, lineHeight: 1.55, overflow: "auto",
+                  whiteSpace: "pre-wrap",
+                }}>{`Conteudo {
+  titulo:        string
+  descricao:     string  // 1–3 linhas
+  fonte:         string  // órgão / autor
+  link:          url
+  formato:       enum    // LC, EC, PL, RES, DEC,
+                         // Vídeo, Artigo, Nota,
+                         // Apresentação, Curso
+  tema:          string  // IBS, CBS, FNDR…
+  profundidade:  enum    // Introdutório,
+                         //  Aprofundado,
+                         //  Especialista
+  data:          date
+  destaque?:     boolean
+  novidade?:     boolean
+}`}</pre>
+                <p style={{ fontSize: 13, lineHeight: 1.55, margin: "14px 0 0", color: "rgba(11,37,53,0.72)" }}>
+                  No mock, esse schema é o array em <code>portal-data.jsx</code>.
+                  No Code, vira a tabela do CMS / Strapi / Supabase.
+                </p>
+              </div>
+            </DCArtboard>
+
+            <DCArtboard id="handoff-roadmap" label="Roadmap sugerido" width={420} height={520}>
+              <div style={{ padding: 30, background: "#FAF7F2", height: "100%", color: "#1a1410", fontFamily: "'Lora', Georgia, serif" }}>
+                <div style={{
+                  fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "#1A5068", fontWeight: 700, marginBottom: 16,
+                }}>Roadmap sugerido</div>
+                {[
+                  ["v1 · MVP", "Homepage estática + 3 áreas com listas + página de detalhe. Catálogo em JSON ou Markdown."],
+                  ["v1.1 · Curadoria", "Painel mínimo para o time da SEAF cadastrar conteúdo sem mexer em código."],
+                  ["v1.2 · Busca + filtros", "Busca por termo, filtros por tema/formato/profundidade/data."],
+                  ["v2 · Ciclo ao vivo", "Inscrição online, lembrete por e-mail, gravação automática indo para Estudos."],
+                  ["v2.1 · Boletim", "E-mail semanal aos sextas com a manchete + 3 destaques."],
+                ].map(([t, d], i) => (
+                  <div key={i} style={{
+                    display: "grid", gridTemplateColumns: "auto 1fr", gap: 14,
+                    paddingBottom: 14, marginBottom: 14,
+                    borderBottom: "1px solid rgba(11,37,53,0.12)",
+                  }}>
+                    <span style={{
+                      fontFamily: "ui-monospace, Menlo, monospace", fontSize: 11,
+                      color: "#C9941A", letterSpacing: "0.16em", fontWeight: 700,
+                    }}>{String(i+1).padStart(2,"0")}</span>
+                    <span>
+                      <div style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "#0B2535", marginBottom: 4 }}>{t}</div>
+                      <div style={{ fontSize: 13, lineHeight: 1.5, color: "rgba(11,37,53,0.72)" }}>{d}</div>
+                    </span>
+                  </div>
+                ))}
+                <p style={{ fontSize: 12, color: "rgba(11,37,53,0.6)", fontStyle: "italic", margin: 0, lineHeight: 1.5 }}>
+                  A proposta nasce simples e institucional. A sofisticação vem depois — o ganho do
+                  dia um é dar visibilidade ao que já existe.
+                </p>
+              </div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
