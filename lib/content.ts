@@ -113,14 +113,16 @@ export const estudos: ContentItem[] = [
   {
     slug: "sefaz-es-reforma-tributaria-video-1",
     tag: "Vídeo",
-    titulo: "Reforma Tributária no ES — Apresentação SEFAZ-ES",
-    subtitulo: "Seminário SEFAZ-ES · 2026",
+    titulo: "Funcionamento e Estrutura do Comitê Gestor",
+    subtitulo: "Ciclo de Palestras sobre a Reforma Tributária · SEFAZ-ES / Tesouro Estadual",
     porQueImporta:
-      "Material institucional da SEFAZ-ES sobre a Reforma Tributária, abordando os impactos para o Espírito Santo e as medidas de adaptação do Tesouro Estadual ao novo modelo do IBS/CBS.",
-    fonte: "SEFAZ-ES — YouTube",
+      "Neste vídeo, apresentamos o tema 'Funcionamento e Estrutura do Comitê Gestor', conduzido por Luciane Kurzawa, fiscal tributária da Secretaria da Fazenda do Mato Grosso do Sul (Sefaz-MS). Durante a palestra, abordamos aspectos relacionados à organização, às competências e ao funcionamento do Comitê Gestor, além dos desafios e impactos da nova estrutura para estados e municípios no contexto da Reforma Tributária.",
+    descricao:
+      "O ciclo de palestras sobre a Reforma Tributária é uma iniciativa promovida pela Secretaria da Fazenda do Espírito Santo, por meio da Subsecretaria do Tesouro Estadual, que reúne especialistas para debater as principais mudanças no sistema tributário brasileiro e os desafios que estados e municípios enfrentarão durante o período de transição para o novo modelo de arrecadação e repartição de receitas.",
+    fonte: "SEFAZ-ES / Tesouro Estadual — YouTube",
     formato: "Vídeo",
     tema: "ES · SEFAZ",
-    profundidade: "Introdutório",
+    profundidade: "Aprofundado",
     data: "2026",
     youtubeId: "1Ya8u41jySs",
     url: "https://youtu.be/1Ya8u41jySs",
