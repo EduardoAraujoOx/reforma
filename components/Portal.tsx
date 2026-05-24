@@ -5,7 +5,6 @@ import { T } from "./tokens";
 import { destaque, base, estudos, radar } from "@/lib/content";
 import type { ContentItem } from "@/lib/content";
 import Header from "./Header";
-import BrazilRadarMap from "./BrazilRadarMap";
 import ContentModal from "./ContentModal";
 
 // ── Primitive helpers ──────────────────────────────────────
@@ -89,6 +88,28 @@ function StatusFlag({ kind = "novo" }: { kind?: "novo" | "destaque" }) {
         boxShadow: `0 0 8px ${T.GOLD}` }} />
       Novo
     </span>
+  );
+}
+
+function FormatIcon({ code, dark = false }: { code: string; dark?: boolean }) {
+  const c = dark ? "rgba(232,184,75,0.8)" : T.GOLD;
+  const paths: Record<string, React.ReactNode> = {
+    VID:  <><circle cx="10" cy="10" r="8.5" stroke={c} strokeWidth="1.1" fill="none"/><path d="M8 7 L15 10 L8 13 Z" fill={c}/></>,
+    EC:   <><rect x="3" y="2" width="14" height="16" rx="1.5" stroke={c} strokeWidth="1.1" fill="none"/><path d="M3 6 H17" stroke={c} strokeWidth="0.8"/><line x1="6" y1="10" x2="14" y2="10" stroke={c} strokeWidth="0.9"/><line x1="6" y1="13" x2="14" y2="13" stroke={c} strokeWidth="0.9"/></>,
+    LC:   <><path d="M2 3 Q10 1 18 3 L18 15 Q10 18 2 15 Z" stroke={c} strokeWidth="1" fill="none"/><text x="10" y="13" textAnchor="middle" fontSize="8" fill={c} fontFamily="serif" fontWeight="700">§</text></>,
+    NT:   <><circle cx="8.5" cy="8.5" r="6" stroke={c} strokeWidth="1.1" fill="none"/><line x1="13" y1="13" x2="18" y2="18" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></>,
+    WEB:  <><circle cx="10" cy="10" r="8.5" stroke={c} strokeWidth="1.1" fill="none"/><ellipse cx="10" cy="10" rx="4" ry="8.5" stroke={c} strokeWidth="0.8" fill="none"/><line x1="1.5" y1="10" x2="18.5" y2="10" stroke={c} strokeWidth="0.8"/></>,
+    ART:  <><line x1="3" y1="5" x2="17" y2="5" stroke={c} strokeWidth="1.2"/><line x1="3" y1="9" x2="17" y2="9" stroke={c} strokeWidth="1"/><line x1="3" y1="13" x2="11" y2="13" stroke={c} strokeWidth="1"/></>,
+    GUIA: <><circle cx="10" cy="10" r="8.5" stroke={c} strokeWidth="1" fill="none"/><circle cx="10" cy="10" r="2.5" fill={c}/><line x1="10" y1="1.5" x2="10" y2="5" stroke={c} strokeWidth="0.9"/><line x1="10" y1="15" x2="10" y2="18.5" stroke={c} strokeWidth="0.9"/><line x1="1.5" y1="10" x2="5" y2="10" stroke={c} strokeWidth="0.9"/><line x1="15" y1="10" x2="18.5" y2="10" stroke={c} strokeWidth="0.9"/></>,
+    PDF:  <><path d="M4 1 H13 L17 5 V19 H4 Z" stroke={c} strokeWidth="1" fill="none"/><path d="M13 1 V5 H17" stroke={c} strokeWidth="0.9" fill="none"/><line x1="7" y1="10" x2="14" y2="10" stroke={c} strokeWidth="0.8"/><line x1="7" y1="13" x2="14" y2="13" stroke={c} strokeWidth="0.8"/></>,
+    RES:  <><path d="M10 2 L18 6 V14 L10 18 L2 14 V6 Z" stroke={c} strokeWidth="1" fill="none"/><line x1="10" y1="7" x2="10" y2="12" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><circle cx="10" cy="14.5" r="1.2" fill={c}/></>,
+  };
+  const icon = paths[code] ?? paths["ART"];
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+      style={{ flexShrink: 0, opacity: 0.9 }}>
+      {icon}
+    </svg>
   );
 }
 
@@ -254,7 +275,9 @@ export default function Portal() {
                 Foco em<br />Espírito Santo
               </div>
               <div style={{ marginLeft: -10, marginRight: -10 }}>
-                <BrazilRadarMap size={320} />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/animated-radar-es.svg" alt="Radar do Espírito Santo"
+                  style={{ width: "100%", display: "block" }} />
               </div>
               <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)",
                 marginTop: 8, paddingTop: 12, display: "grid", gap: 8,
@@ -467,12 +490,17 @@ export default function Portal() {
                 Índice da biblioteca
               </span>
             </div>
-            {estudos.map((item, i) => (
+            {estudos.map((item, i) => {
+              const code = FORMAT_CODE[item.formato ?? ""] ?? (item.formato ?? "").slice(0, 3).toUpperCase();
+              return (
               <div key={item.slug} onClick={() => setModal(item)} className="estudos-index-row">
-                <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                  color: T.GOLD_LIGHT, letterSpacing: "0.18em", fontWeight: 700 }}>
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
+                    color: T.GOLD_LIGHT, letterSpacing: "0.14em", fontWeight: 700 }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <FormatIcon code={code} dark />
+                </div>
                 <div>
                   <div style={{ fontFamily: "var(--ff-display)", fontSize: 19,
                     lineHeight: 1.2, marginBottom: 4, color: "#fff" }}>
@@ -493,7 +521,7 @@ export default function Portal() {
                   </div>
                 )}
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
