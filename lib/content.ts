@@ -49,6 +49,7 @@ export const base: ContentItem[] = [
     tema: "Fundamentos / EC 132",
     profundidade: "Especialista",
     data: "dez 2023",
+    imageUrl: "/normas/ec-132.webp",
     url: "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm",
   },
   {
@@ -63,6 +64,7 @@ export const base: ContentItem[] = [
     tema: "IBS · CBS · IS",
     profundidade: "Especialista",
     data: "jan 2025",
+    imageUrl: "/normas/lc-214.webp",
     url: "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp214.htm",
   },
   {
@@ -78,6 +80,7 @@ export const base: ContentItem[] = [
     profundidade: "Aprofundado",
     data: "jan 2026",
     novidade: true,
+    imageUrl: "/normas/lc-227.webp",
     url: "https://www12.senado.leg.br/noticias/materias/2026/01/14/reforma-tributaria-lei-cria-comite-gestor-do-ibs-e-define-regras-do-imposto",
   },
   {
@@ -92,6 +95,7 @@ export const base: ContentItem[] = [
     tema: "Normas / CG-IBS",
     profundidade: "Introdutório",
     data: "mai 2026",
+    imageUrl: "/normas/portal-cgibs.webp",
     url: "https://www.cgibs.gov.br",
   },
   {
@@ -106,6 +110,7 @@ export const base: ContentItem[] = [
     tema: "Regulamentação",
     profundidade: "Introdutório",
     data: "mai 2026",
+    imageUrl: "/normas/portal-reforma.webp",
     url: "https://www.gov.br/fazenda/pt-br/acesso-a-informacao/acoes-e-programas/reforma-tributaria",
   },
 ];

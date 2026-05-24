@@ -446,90 +446,106 @@ export default function Portal() {
             }
           />
 
-          <div className="base-grid">
-            {/* Featured */}
-            <article style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ display: "flex", gap: 10, marginBottom: 20, alignItems: "center", flexWrap: "wrap" }}>
-                <StatusFlag kind="destaque" />
-                {featuredBase.formato && <FormatTag formato={featuredBase.formato} />}
-                {featuredBase.tema    && <TemaPill tema={featuredBase.tema} />}
-              </div>
-              <h3 style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(24px,3vw,36px)",
-                lineHeight: 1.1, letterSpacing: "-0.012em", margin: "0 0 18px", color: T.NAVY }}>
-                {featuredBase.titulo}
-              </h3>
-              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 17, lineHeight: 1.55,
-                color: "rgba(11,37,53,0.78)", margin: "0 0 26px" }}>
-                {featuredBase.subtitulo}
-              </p>
-              {featuredBase.porQueImporta && (
-                <p style={{ fontFamily: "var(--ff-reading)", fontSize: 15, lineHeight: 1.6,
-                  color: "rgba(11,37,53,0.65)", margin: "0 0 26px",
-                  paddingLeft: 14, borderLeft: `3px solid ${T.RULE}` }}>
-                  {featuredBase.porQueImporta}
-                </p>
-              )}
-              <div style={{ marginTop: 0, display: "flex", alignItems: "center", gap: 22,
-                paddingTop: 16, borderTop: `1px solid ${T.RULE}`, flexWrap: "wrap" }}>
-                {featuredBase.profundidade && <ProfundidadePip level={featuredBase.profundidade} />}
-                <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                  letterSpacing: "0.18em", textTransform: "uppercase",
-                  color: "rgba(11,37,53,0.55)" }}>
-                  {featuredBase.fonte}
-                </span>
-                <button onClick={() => setModal(featuredBase)}
-                  style={{ marginLeft: "auto", color: T.NAVY, fontSize: 14, fontWeight: 600,
-                    fontFamily: "var(--ff-ui)", background: "none", border: "none",
-                    cursor: "pointer", borderBottom: `1px solid ${T.NAVY}`, paddingBottom: 2 }}>
-                  Abrir documento →
-                </button>
-              </div>
-            </article>
+          <div className="hero-feed" style={{ padding: 0, paddingBottom: 0, marginTop: 36 }}>
 
-            {/* Numbered list */}
-            <div>
-              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.22em",
-                textTransform: "uppercase", color: "rgba(11,37,53,0.55)",
-                marginBottom: 12, fontWeight: 700 }}>
+            {/* ── Featured card ── */}
+            <div className="hero-feat" onClick={() => setModal(featuredBase)}>
+              {featuredBase.imageUrl && (
+                <div style={{ overflow: "hidden" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={featuredBase.imageUrl}
+                    alt={featuredBase.titulo}
+                    style={{ width: "100%", display: "block", aspectRatio: "16/9", objectFit: "cover" }}
+                  />
+                </div>
+              )}
+              <div className="hero-feat-body">
+                <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
+                  <StatusFlag kind="destaque" />
+                  {featuredBase.formato && <FormatTag formato={featuredBase.formato} />}
+                </div>
+                <h3 style={{ fontFamily: "var(--ff-display)",
+                  fontSize: "clamp(20px,2.6vw,30px)", fontWeight: 700,
+                  lineHeight: 1.1, letterSpacing: "-0.012em",
+                  margin: "0 0 10px", color: T.NAVY }}>
+                  {featuredBase.titulo}
+                </h3>
+                <p style={{ fontFamily: "var(--ff-reading)", fontSize: 14, lineHeight: 1.58,
+                  color: "rgba(11,37,53,0.7)", margin: "0 0 14px" }}>
+                  {featuredBase.subtitulo}
+                </p>
+                {featuredBase.porQueImporta && (
+                  <p style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.6,
+                    color: "rgba(11,37,53,0.6)", margin: "0 0 18px",
+                    paddingLeft: 12, borderLeft: `2px solid ${T.RULE}`,
+                    display: "-webkit-box", WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                    {featuredBase.porQueImporta}
+                  </p>
+                )}
+                <div style={{ display: "flex", alignItems: "center", gap: 16,
+                  paddingTop: 14, borderTop: `1px solid ${T.RULE}`, flexWrap: "wrap" }}>
+                  {featuredBase.profundidade && <ProfundidadePip level={featuredBase.profundidade} />}
+                  <button
+                    onClick={e => { e.stopPropagation(); setModal(featuredBase); }}
+                    style={{ marginLeft: "auto", background: T.NAVY, color: "#fff",
+                      padding: "10px 16px", fontFamily: "var(--ff-ui)", fontSize: 13,
+                      fontWeight: 600, border: "none", cursor: "pointer",
+                      display: "inline-flex", alignItems: "center", gap: 8 }}>
+                    Abrir documento
+                    <span style={{ fontFamily: "var(--ff-mono)", fontWeight: 400 }}>→</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Documents list ── */}
+            <div className="hero-nlist">
+              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.24em",
+                textTransform: "uppercase", color: T.NAVY, fontWeight: 700,
+                paddingBottom: 12, borderBottom: `2px solid ${T.NAVY}`,
+                marginBottom: 2 }}>
                 Outros documentos
               </div>
-              {restBase.map((item, i) => (
-                <div key={item.slug} onClick={() => setModal(item)}
-                  style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 22,
-                    alignItems: "start", padding: "20px 0", borderTop: `1px solid ${T.RULE}`,
-                    cursor: "pointer" }}>
-                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11, color: T.GOLD,
-                    letterSpacing: "0.18em", fontWeight: 700, paddingTop: 3 }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <div style={{ display: "flex", gap: 8, marginBottom: 6, flexWrap: "wrap", alignItems: "center" }}>
-                      {item.formato && <FormatTag formato={item.formato} />}
-                      {item.tema    && <TemaPill tema={item.tema} />}
-                      {item.novidade && <StatusFlag kind="novo" />}
+
+              {restBase.map((item) => (
+                <div key={item.slug} className="hero-nitem" onClick={() => setModal(item)}>
+                  {item.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={item.imageUrl} alt=""
+                      style={{ width: 88, height: 60, objectFit: "cover", flexShrink: 0, display: "block" }} />
+                  ) : (
+                    <div style={{ width: 88, height: 60, flexShrink: 0,
+                      background: T.NAVY, display: "grid", placeItems: "center" }}>
+                      <FormatTag formato={item.formato ?? ""} />
                     </div>
-                    <div style={{ fontFamily: "var(--ff-display)", fontSize: 19,
-                      lineHeight: 1.2, color: T.NAVY, marginBottom: 6 }}>
+                  )}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.18em",
+                      textTransform: "uppercase", color: T.TEAL, fontWeight: 700,
+                      marginBottom: 4 }}>
+                      {item.tag} &nbsp;·&nbsp; {item.data}
+                      {item.novidade && <> &nbsp;<StatusFlag kind="novo" /></>}
+                    </div>
+                    <div className="hero-nitem-title" style={{ fontFamily: "var(--ff-display)",
+                      fontSize: "clamp(14px,1.7vw,16px)", lineHeight: 1.25, color: T.NAVY,
+                      marginBottom: 4 }}>
                       {item.titulo}
                     </div>
-                    <div style={{ fontFamily: "var(--ff-reading)", fontSize: 14,
-                      lineHeight: 1.5, color: "rgba(11,37,53,0.7)" }}>
+                    <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.5,
+                      color: "rgba(11,37,53,0.6)",
+                      display: "-webkit-box", WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                       {item.subtitulo}
                     </div>
-                    {item.profundidade && (
-                      <div style={{ marginTop: 10 }}>
-                        <ProfundidadePip level={item.profundidade} />
-                      </div>
-                    )}
                   </div>
-                  <div style={{ textAlign: "right", paddingTop: 3, fontFamily: "var(--ff-mono)",
-                    fontSize: 10, letterSpacing: "0.16em", textTransform: "uppercase",
-                    color: "rgba(11,37,53,0.55)" }}>
-                    {item.data}
-                  </div>
+                  <div style={{ color: "rgba(11,37,53,0.28)", fontSize: 22,
+                    flexShrink: 0, alignSelf: "center", paddingLeft: 8 }}>›</div>
                 </div>
               ))}
             </div>
+
           </div>
         </div>
       </section>
@@ -562,16 +578,24 @@ export default function Portal() {
                 </div>
               </div>
               <p style={{ fontFamily: "var(--ff-reading)", fontSize: 14, lineHeight: 1.6,
-                color: "rgba(255,255,255,0.7)", margin: 0, maxWidth: 380 }}>
+                color: "rgba(255,255,255,0.7)", margin: "0 0 18px", maxWidth: 380 }}>
                 Memória técnica do Tesouro Estadual sobre a Reforma Tributária do consumo
                 — vista pelo Espírito Santo.
               </p>
+              <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.8,
+                color: "rgba(255,255,255,0.55)" }}>
+                <div>Secretaria da Fazenda do Estado do Espírito Santo</div>
+                <div>Av. João Batista Parra, 600 — Enseada do Suá</div>
+                <div>Vitória – ES · CEP 29050-375</div>
+                <a href="mailto:subset@sefaz.es.gov.br"
+                  style={{ color: T.GOLD_LIGHT, textDecoration: "none", marginTop: 6, display: "block" }}>
+                  subset@sefaz.es.gov.br
+                </a>
+              </div>
             </div>
 
             {[
-              { t: "Áreas",        l: ["Últimas Notícias", "Estudos e Vídeos", "Legislação e Normas"] },
-              { t: "Institucional", l: ["SEFAZ-ES", "Tesouro Estadual", "Portal da Transparência"] },
-              { t: "Governo",      l: ["Governo ES", "Diário Oficial ES", "Ministério da Fazenda"] },
+              { t: "Institucional", l: ["SEFAZ-ES", "Tesouro Estadual"] },
             ].map((col) => (
               <div key={col.t}>
                 <div style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
@@ -594,12 +618,10 @@ export default function Portal() {
             ))}
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-            paddingTop: 22, fontFamily: "var(--ff-mono)", fontSize: 11,
+          <div style={{ paddingTop: 22, fontFamily: "var(--ff-mono)", fontSize: 11,
             letterSpacing: "0.18em", textTransform: "uppercase",
-            color: "rgba(255,255,255,0.5)", flexWrap: "wrap", gap: 12 }}>
-            <span>© 2026 · Governo do Estado do Espírito Santo · SEFAZ-ES</span>
-            <span>Boletim 023/2026 · Atualizado em 23 mai 2026</span>
+            color: "rgba(255,255,255,0.5)" }}>
+            © 2026 · Governo do Estado do Espírito Santo · SEFAZ-ES
           </div>
         </div>
       </footer>
