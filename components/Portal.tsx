@@ -177,64 +177,22 @@ export default function Portal() {
       {/* ═══ HERO ═══ */}
       <div style={{ background: T.CREAM_LIGHT, borderBottom: `1px solid ${T.RULE}` }}>
 
-        {/* Dateline */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "12px 56px", fontFamily: "var(--ff-mono)", fontSize: 11,
-          letterSpacing: "0.18em", textTransform: "uppercase",
-          color: "rgba(11,37,53,0.55)", borderBottom: `1px solid ${T.RULE}` }}>
-          <span>Vitória · ES &nbsp;·&nbsp; sáb, 24 mai 2026</span>
-          <span className="dateline-right" style={{ color: T.GOLD }}>
-            ● Radar ativo · 12 atualizações esta semana
+        {/* Curadoria kicker */}
+        <div className="hero-kicker">
+          <div style={{ flex: 1, height: 1, background: T.GOLD, opacity: 0.38 }} />
+          <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.26em",
+            textTransform: "uppercase", color: "rgba(11,37,53,0.48)", whiteSpace: "nowrap" }}>
+            Curadoria · Normas, Estudos e Notícias
           </span>
+          <div style={{ flex: 1, height: 1, background: T.GOLD, opacity: 0.38 }} />
         </div>
 
-        {/* 3-section navigation strip */}
-        <div className="sections-nav">
-          {([
-            { n: "01", t: "Legislação e Normas",   l: "Base legal da Reforma",       href: "#base" },
-            { n: "02", t: "Estudos e Capacitação", l: "Vídeos e análises técnicas",  href: "#estudos" },
-            { n: "03", t: "Últimas Notícias",       l: "Radar do Tesouro Estadual",   href: "#radar" },
-          ] as { n: string; t: string; l: string; href: string }[]).map(({ n, t, l, href }) => (
-            <a key={n} href={href} className="sections-nav-tile">
-              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.26em",
-                textTransform: "uppercase", color: T.GOLD, fontWeight: 700, marginBottom: 4 }}>
-                {n}
-              </div>
-              <div style={{ fontFamily: "var(--ff-display)", fontSize: 17, color: T.NAVY,
-                lineHeight: 1.15, marginBottom: 3 }}>
-                {t}
-              </div>
-              <div className="section-nav-lede" style={{ fontFamily: "var(--ff-ui)", fontSize: 12,
-                color: "rgba(11,37,53,0.5)" }}>
-                {l}
-              </div>
-            </a>
-          ))}
-        </div>
+        <div className="hero-feed">
 
-        {/* Main hero */}
-        <div className="hero-inner" style={{ gap: 48 }}>
-          {/* Featured video */}
-          <article>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18, flexWrap: "wrap" }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 7,
-                background: T.NAVY, color: T.GOLD_LIGHT, padding: "5px 11px",
-                fontFamily: "var(--ff-mono)", fontSize: 10,
-                letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600 }}>
-                <span style={{ width: 5, height: 5, background: T.GOLD_LIGHT, borderRadius: 99 }} />
-                Ciclo de Palestras
-              </span>
-              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                letterSpacing: "0.18em", textTransform: "uppercase",
-                color: T.TEAL, fontWeight: 600 }}>
-                SEFAZ-ES · Tesouro Estadual
-              </span>
-            </div>
-
-            {/* Thumbnail with play */}
-            <div onClick={() => setModal(featuredVideo)}
-              style={{ position: "relative", cursor: "pointer", marginBottom: 22,
-                overflow: "hidden", border: `1px solid ${T.RULE}` }}>
+          {/* ── Featured card ── */}
+          <div className="hero-feat" onClick={() => setModal(featuredVideo)}>
+            {/* Thumbnail */}
+            <div style={{ position: "relative", overflow: "hidden" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={`https://img.youtube.com/vi/${featuredVideo.youtubeId}/hqdefault.jpg`}
@@ -242,84 +200,88 @@ export default function Portal() {
                 style={{ width: "100%", display: "block", aspectRatio: "16/9", objectFit: "cover" }}
               />
               <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center",
-                background: "rgba(11,37,53,0.3)" }}>
-                <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                  <circle cx="28" cy="28" r="26" fill="rgba(0,0,0,0.6)"
-                    stroke="rgba(232,184,75,0.75)" strokeWidth="1.5" />
-                  <path d="M23 19 L39 28 L23 37 Z" fill="#E8B84B" />
+                background: "rgba(11,37,53,0.25)" }}>
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                  <circle cx="24" cy="24" r="22" fill="rgba(0,0,0,0.55)"
+                    stroke="rgba(232,184,75,0.75)" strokeWidth="1.3" />
+                  <path d="M19 15 L34 24 L19 33 Z" fill="#E8B84B" />
                 </svg>
               </div>
             </div>
 
-            <h1 style={{ fontFamily: "var(--ff-display)",
-              fontSize: "clamp(22px,2.8vw,36px)", fontWeight: 700,
-              lineHeight: 1.08, letterSpacing: "-0.012em",
-              margin: "0 0 8px", color: T.NAVY }}>
-              {featuredVideo.titulo}
-            </h1>
-
-            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 11, letterSpacing: "0.16em",
-              textTransform: "uppercase", color: "rgba(11,37,53,0.5)", marginBottom: 18 }}>
-              Luciane Kurzawa &nbsp;·&nbsp; Fiscal Tributária, Sefaz-MS
-            </div>
-
-            <p style={{ fontFamily: "var(--ff-reading)", fontSize: 16, lineHeight: 1.58,
-              color: "#2b2520", margin: "0 0 16px" }}>
-              {featuredVideo.porQueImporta}
-            </p>
-
-            {featuredVideo.descricao && (
-              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 14, lineHeight: 1.68,
-                color: "rgba(11,37,53,0.62)", paddingLeft: 14,
-                borderLeft: `3px solid ${T.RULE}`, margin: "0 0 26px" }}>
-                {featuredVideo.descricao}
+            {/* Content */}
+            <div className="hero-feat-body">
+              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.22em",
+                textTransform: "uppercase", color: T.GOLD, fontWeight: 700, marginBottom: 10 }}>
+                Em destaque · Ciclo de Palestras
+              </div>
+              <h1 style={{ fontFamily: "var(--ff-display)",
+                fontSize: "clamp(20px,2.6vw,30px)", fontWeight: 700,
+                lineHeight: 1.1, letterSpacing: "-0.012em",
+                margin: "0 0 10px", color: T.NAVY }}>
+                {featuredVideo.titulo}
+              </h1>
+              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 14, lineHeight: 1.58,
+                color: "rgba(11,37,53,0.7)", margin: "0 0 18px" }}>
+                {featuredVideo.subtitulo}
               </p>
-            )}
-
-            <button onClick={() => setModal(featuredVideo)}
-              style={{ background: T.NAVY, color: "#fff", padding: "13px 20px",
-                fontFamily: "var(--ff-ui)", fontSize: 14, fontWeight: 600,
-                letterSpacing: "0.02em", border: "none", cursor: "pointer",
-                display: "inline-flex", alignItems: "center", gap: 10 }}>
-              ▶ Assistir palestra
-              <span style={{ fontFamily: "var(--ff-mono)", fontWeight: 400 }}>→</span>
-            </button>
-          </article>
-
-          {/* Latest news sidebar */}
-          <aside className="hero-news-aside">
-            <div style={{ borderTop: `2px solid ${T.NAVY}`, paddingTop: 10, marginBottom: 18 }}>
-              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.24em",
-                textTransform: "uppercase", color: T.NAVY, fontWeight: 700 }}>
-                03 · Últimas Notícias
-              </span>
+              <button
+                onClick={e => { e.stopPropagation(); setModal(featuredVideo); }}
+                style={{ background: T.NAVY, color: "#fff", padding: "11px 18px",
+                  fontFamily: "var(--ff-ui)", fontSize: 13, fontWeight: 600,
+                  border: "none", cursor: "pointer",
+                  display: "inline-flex", alignItems: "center", gap: 8 }}>
+                Assistir palestra
+                <span style={{ fontFamily: "var(--ff-mono)", fontWeight: 400 }}>→</span>
+              </button>
             </div>
+          </div>
+
+          {/* ── News list ── */}
+          <div>
+            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.24em",
+              textTransform: "uppercase", color: T.NAVY, fontWeight: 700,
+              paddingBottom: 12, borderBottom: `2px solid ${T.NAVY}`,
+              marginBottom: 2 }}>
+              Últimas Notícias
+            </div>
+
             {radar.slice(0, 4).map((item) => (
-              <div key={item.slug} onClick={() => setModal(item)}
-                style={{ padding: "13px 0", borderBottom: `1px solid ${T.RULE}`, cursor: "pointer" }}>
-                <div style={{ display: "flex", gap: 8, marginBottom: 5, alignItems: "center" }}>
-                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 9, letterSpacing: "0.2em",
-                    textTransform: "uppercase", color: T.TEAL, fontWeight: 700 }}>
-                    {item.tag}
-                  </span>
-                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 9, letterSpacing: "0.14em",
-                    textTransform: "uppercase", color: "rgba(11,37,53,0.45)" }}>
-                    {item.date} {item.month}
-                  </span>
+              <div key={item.slug} className="hero-nitem" onClick={() => setModal(item)}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: T.TEAL, fontWeight: 700,
+                    marginBottom: 4 }}>
+                    {item.tag} &nbsp;·&nbsp; {item.date} {item.month}
+                  </div>
+                  <div className="hero-nitem-title" style={{ fontFamily: "var(--ff-display)",
+                    fontSize: "clamp(15px,1.8vw,17px)", lineHeight: 1.25, color: T.NAVY,
+                    marginBottom: 4 }}>
+                    {item.titulo}
+                  </div>
+                  {item.descricao && (
+                    <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.5,
+                      color: "rgba(11,37,53,0.6)",
+                      display: "-webkit-box", WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                      {item.descricao}
+                    </div>
+                  )}
                 </div>
-                <div style={{ fontFamily: "var(--ff-display)", fontSize: 15, lineHeight: 1.28,
-                  color: T.NAVY }}>
-                  {item.titulo}
-                </div>
+                <div style={{ color: "rgba(11,37,53,0.28)", fontSize: 22,
+                  flexShrink: 0, alignSelf: "center", paddingLeft: 8 }}>›</div>
               </div>
             ))}
-            <a href="#radar" style={{ display: "block", marginTop: 14,
+
+            <a href="#radar" style={{ display: "block", marginTop: 16,
               fontFamily: "var(--ff-ui)", fontSize: 13, fontWeight: 600,
               color: T.NAVY, textDecoration: "none",
-              borderBottom: `1px solid ${T.NAVY}`, paddingBottom: 2, width: "fit-content" }}>
+              borderBottom: `1px solid ${T.NAVY}`, paddingBottom: 2,
+              width: "fit-content" }}>
               Ver todas as notícias →
             </a>
-          </aside>
+          </div>
+
         </div>
       </div>
 
