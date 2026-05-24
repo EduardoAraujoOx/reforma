@@ -4,10 +4,9 @@ import { useState } from "react";
 import { T } from "./tokens";
 
 const NAV = [
-  { label: "Início",                href: "#"        },
-  { label: "Base da Reforma",       href: "#base"    },
-  { label: "Estudos",               href: "#estudos" },
-  { label: "Radar",                 href: "#radar"   },
+  { label: "Notícias",           href: "#noticias" },
+  { label: "Estudos e Vídeos",   href: "#estudos"  },
+  { label: "Legislação",         href: "#base"     },
 ];
 
 function Brasao({ height = 32 }: { height?: number }) {

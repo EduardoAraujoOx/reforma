@@ -162,20 +162,16 @@ export default function Portal() {
   }, [modal]);
 
   const featuredVideo = estudos[0];
-  const featuredBase = base[0];
-  const restBase     = base.slice(1);
-  const featuredEstudos = estudos.slice(0, 2);
-  const restEstudos     = estudos.slice(2);
-  const [leadRadar, secondRadar, ...restRadar] = radar;
-
+  const featuredBase  = base[0];
+  const restBase      = base.slice(1);
 
   return (
     <div style={{ background: T.CREAM_LIGHT, minHeight: "100vh", color: T.INK }}>
       {modal && <ContentModal item={modal} onClose={() => setModal(null)} />}
       <Header />
 
-      {/* ═══ HERO ═══ */}
-      <div style={{ background: T.CREAM_LIGHT, borderBottom: `1px solid ${T.RULE}` }}>
+      {/* ═══ NOTÍCIAS ═══ */}
+      <div id="noticias" style={{ background: T.CREAM_LIGHT, borderBottom: `1px solid ${T.RULE}` }}>
 
         {/* Curadoria kicker */}
         <div className="hero-kicker">
@@ -246,16 +242,31 @@ export default function Portal() {
               Últimas Notícias
             </div>
 
-            {radar.slice(0, 4).map((item) => (
+            {radar.map((item) => (
               <div key={item.slug} className="hero-nitem" onClick={() => setModal(item)}>
-                <div style={{ flex: 1 }}>
+                {/* Thumbnail */}
+                {item.imageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={item.imageUrl} alt=""
+                    style={{ width: 88, height: 60, objectFit: "cover", flexShrink: 0, display: "block" }} />
+                ) : (
+                  <div style={{ width: 88, height: 60, flexShrink: 0,
+                    background: T.NAVY, display: "grid", placeItems: "center" }}>
+                    <span style={{ fontFamily: "var(--ff-mono)", fontSize: 9,
+                      color: T.GOLD_LIGHT, letterSpacing: "0.1em", textAlign: "center",
+                      padding: "0 6px", lineHeight: 1.3, textTransform: "uppercase" }}>
+                      {(item.tag ?? "").slice(0, 6)}
+                    </span>
+                  </div>
+                )}
+                <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.18em",
                     textTransform: "uppercase", color: T.TEAL, fontWeight: 700,
                     marginBottom: 4 }}>
                     {item.tag} &nbsp;·&nbsp; {item.date} {item.month}
                   </div>
                   <div className="hero-nitem-title" style={{ fontFamily: "var(--ff-display)",
-                    fontSize: "clamp(15px,1.8vw,17px)", lineHeight: 1.25, color: T.NAVY,
+                    fontSize: "clamp(14px,1.7vw,16px)", lineHeight: 1.25, color: T.NAVY,
                     marginBottom: 4 }}>
                     {item.titulo}
                   </div>
@@ -272,24 +283,159 @@ export default function Portal() {
                   flexShrink: 0, alignSelf: "center", paddingLeft: 8 }}>›</div>
               </div>
             ))}
-
-            <a href="#radar" style={{ display: "block", marginTop: 16,
-              fontFamily: "var(--ff-ui)", fontSize: 13, fontWeight: 600,
-              color: T.NAVY, textDecoration: "none",
-              borderBottom: `1px solid ${T.NAVY}`, paddingBottom: 2,
-              width: "fit-content" }}>
-              Ver todas as notícias →
-            </a>
           </div>
 
         </div>
       </div>
 
-      {/* ═══ BASE DA REFORMA ═══ */}
+      {/* ═══ ESTUDOS E VÍDEOS ═══ */}
+      <section id="estudos" style={{ background: T.NAVY, color: "#fff" }}>
+        <div className="estudos-inner">
+          <SectionHead
+            kicker="02 · Estudos e Vídeos de Capacitação"
+            title="Vídeos, estudos e material para capacitação técnica"
+            lede="Curadoria de vídeos institucionais, palestras, notas técnicas e estudos de referência sobre a Reforma Tributária do Consumo."
+            dark
+            right={
+              <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.GOLD_LIGHT,
+                opacity: 0.8, letterSpacing: "0.04em" }}>
+                {estudos.length} itens
+              </span>
+            }
+          />
+
+          {/* Video carousel */}
+          <div style={{ marginTop: 36, marginLeft: -56, marginRight: -56 }}>
+            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.22em",
+              textTransform: "uppercase", color: T.GOLD_LIGHT, fontWeight: 700,
+              marginBottom: 14, paddingLeft: 56 }}>
+              ▶ Vídeos em destaque
+            </div>
+            <div style={{ overflowX: "auto", paddingLeft: 56, paddingBottom: 16,
+              scrollbarWidth: "none" }}>
+              <div style={{ display: "flex", gap: 20, width: "max-content", paddingRight: 56 }}>
+                {estudos.filter(e => e.youtubeId).map((item) => (
+                  <div key={item.slug} onClick={() => setModal(item)}
+                    style={{ width: 272, flexShrink: 0, cursor: "pointer",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      background: T.NAVY_SOFT }}>
+                    <div style={{ position: "relative", width: 272, height: 153, overflow: "hidden" }}>
+                      <img
+                        src={`https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`}
+                        alt={item.titulo}
+                        style={{ width: "100%", height: "100%", objectFit: "cover",
+                          display: "block" }}
+                      />
+                      <div style={{ position: "absolute", inset: 0,
+                        display: "grid", placeItems: "center",
+                        background: "rgba(11,37,53,0.28)" }}>
+                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+                          <circle cx="22" cy="22" r="20" fill="rgba(0,0,0,0.55)"
+                            stroke="rgba(232,184,75,0.7)" strokeWidth="1.2" />
+                          <path d="M18 15 L31 22 L18 29 Z" fill="#E8B84B" />
+                        </svg>
+                      </div>
+                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0,
+                        height: 3, background: "rgba(201,148,26,0.9)" }} />
+                    </div>
+                    <div style={{ padding: "16px 18px 18px" }}>
+                      {item.tema && (
+                        <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9,
+                          letterSpacing: "0.22em", textTransform: "uppercase",
+                          color: "rgba(232,184,75,0.8)", fontWeight: 700, marginBottom: 8 }}>
+                          {item.tema}
+                        </div>
+                      )}
+                      <h4 style={{ fontFamily: "var(--ff-display)", fontSize: 15,
+                        lineHeight: 1.25, margin: "0 0 10px", color: "#fff",
+                        display: "-webkit-box", WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                        {item.titulo}
+                      </h4>
+                      <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
+                        letterSpacing: "0.14em", textTransform: "uppercase",
+                        color: "rgba(255,255,255,0.45)" }}>
+                        {item.fonte.split("—")[0].trim()} · {item.data}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Index */}
+          <div style={{ marginTop: 56 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline",
+              borderTop: "1px solid rgba(255,255,255,0.14)", paddingTop: 14, marginBottom: 6 }}>
+              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
+                letterSpacing: "0.22em", textTransform: "uppercase",
+                color: T.GOLD_LIGHT, fontWeight: 700 }}>
+                Últimos estudos e vídeos
+              </span>
+            </div>
+            {estudos.map((item) => {
+              const code = FORMAT_CODE[item.formato ?? ""] ?? (item.formato ?? "").slice(0, 3).toUpperCase();
+              return (
+              <div key={item.slug} onClick={() => setModal(item)} className="estudos-index-row">
+                {/* Thumbnail */}
+                <div style={{ width: 72, height: 48, flexShrink: 0, overflow: "hidden",
+                  position: "relative", alignSelf: "center" }}>
+                  {item.youtubeId ? (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={`https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`}
+                        alt=""
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      />
+                      <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center",
+                        background: "rgba(11,37,53,0.3)" }}>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <circle cx="10" cy="10" r="9" fill="rgba(0,0,0,0.5)"
+                            stroke="rgba(232,184,75,0.6)" strokeWidth="0.8"/>
+                          <path d="M8 6.5 L14 10 L8 13.5 Z" fill="#E8B84B"/>
+                        </svg>
+                      </div>
+                    </>
+                  ) : (
+                    <div style={{ width: "100%", height: "100%", background: T.NAVY_SOFT,
+                      display: "grid", placeItems: "center",
+                      border: "1px solid rgba(255,255,255,0.1)" }}>
+                      <FormatIcon code={code} dark />
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <div style={{ fontFamily: "var(--ff-display)", fontSize: 19,
+                    lineHeight: 1.2, marginBottom: 4, color: "#fff" }}>
+                    {item.titulo}
+                  </div>
+                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.6)",
+                    lineHeight: 1.45, fontFamily: "var(--ff-reading)" }}>
+                    {item.subtitulo}
+                  </div>
+                </div>
+                <div className="estudos-index-meta" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  {item.formato && <FormatTag formato={item.formato} dark />}
+                  {item.tema    && <TemaPill tema={item.tema} dark />}
+                </div>
+                {item.profundidade && (
+                  <div className="estudos-index-meta">
+                    <ProfundidadePip level={item.profundidade} dark />
+                  </div>
+                )}
+              </div>
+            )})}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ LEGISLAÇÃO E NORMAS ═══ */}
       <section id="base" style={{ background: T.CREAM_LIGHT, borderBottom: `1px solid ${T.RULE}` }}>
         <div className="section-inner">
           <SectionHead
-            kicker="01 · Base da Reforma"
+            kicker="03 · Legislação e Normas"
             title="Legislação, atos normativos e documentos oficiais"
             lede="Emendas, leis complementares, decretos e atos do Comitê Gestor. Cada documento catalogado com tema, formato e nível de profundidade — para que o servidor encontre o que precisa sem garimpar."
             right={
@@ -388,205 +534,6 @@ export default function Portal() {
         </div>
       </section>
 
-      {/* ═══ ESTUDOS E CAPACITAÇÃO ═══ */}
-      <section id="estudos" style={{ background: T.NAVY, color: "#fff" }}>
-        <div className="estudos-inner">
-          <SectionHead
-            kicker="02 · Estudos e Capacitação"
-            title="Vídeos, estudos e material para capacitação técnica"
-            lede="Curadoria de vídeos institucionais, palestras, notas técnicas e estudos de referência sobre a Reforma Tributária do Consumo."
-            dark
-            right={
-              <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.GOLD_LIGHT,
-                opacity: 0.8, letterSpacing: "0.04em" }}>
-                {estudos.length} itens
-              </span>
-            }
-          />
-
-          {/* Video carousel */}
-          <div style={{ marginTop: 36, marginLeft: -56, marginRight: -56 }}>
-            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.22em",
-              textTransform: "uppercase", color: T.GOLD_LIGHT, fontWeight: 700,
-              marginBottom: 14, paddingLeft: 56 }}>
-              ▶ Vídeos em destaque
-            </div>
-            <div style={{ overflowX: "auto", paddingLeft: 56, paddingBottom: 16,
-              scrollbarWidth: "none" }}>
-              <div style={{ display: "flex", gap: 20, width: "max-content", paddingRight: 56 }}>
-                {estudos.filter(e => e.youtubeId).map((item) => (
-                  <div key={item.slug} onClick={() => setModal(item)}
-                    style={{ width: 272, flexShrink: 0, cursor: "pointer",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      background: T.NAVY_SOFT }}>
-                    <div style={{ position: "relative", width: 272, height: 153, overflow: "hidden" }}>
-                      <img
-                        src={`https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`}
-                        alt={item.titulo}
-                        style={{ width: "100%", height: "100%", objectFit: "cover",
-                          display: "block" }}
-                      />
-                      <div style={{ position: "absolute", inset: 0,
-                        display: "grid", placeItems: "center",
-                        background: "rgba(11,37,53,0.28)" }}>
-                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-                          <circle cx="22" cy="22" r="20" fill="rgba(0,0,0,0.55)"
-                            stroke="rgba(232,184,75,0.7)" strokeWidth="1.2" />
-                          <path d="M18 15 L31 22 L18 29 Z" fill="#E8B84B" />
-                        </svg>
-                      </div>
-                      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0,
-                        height: 3, background: "rgba(201,148,26,0.9)" }} />
-                    </div>
-                    <div style={{ padding: "16px 18px 18px" }}>
-                      {item.tema && (
-                        <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9,
-                          letterSpacing: "0.22em", textTransform: "uppercase",
-                          color: "rgba(232,184,75,0.8)", fontWeight: 700, marginBottom: 8 }}>
-                          {item.tema}
-                        </div>
-                      )}
-                      <h4 style={{ fontFamily: "var(--ff-display)", fontSize: 15,
-                        lineHeight: 1.25, margin: "0 0 10px", color: "#fff",
-                        display: "-webkit-box", WebkitLineClamp: 2,
-                        WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                        {item.titulo}
-                      </h4>
-                      <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                        letterSpacing: "0.14em", textTransform: "uppercase",
-                        color: "rgba(255,255,255,0.45)" }}>
-                        {item.fonte.split("—")[0].trim()} · {item.data}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Index of remaining */}
-          <div style={{ marginTop: 56 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline",
-              borderTop: "1px solid rgba(255,255,255,0.14)", paddingTop: 14, marginBottom: 6 }}>
-              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                letterSpacing: "0.22em", textTransform: "uppercase",
-                color: T.GOLD_LIGHT, fontWeight: 700 }}>
-                Índice da biblioteca
-              </span>
-            </div>
-            {estudos.map((item, i) => {
-              const code = FORMAT_CODE[item.formato ?? ""] ?? (item.formato ?? "").slice(0, 3).toUpperCase();
-              return (
-              <div key={item.slug} onClick={() => setModal(item)} className="estudos-index-row">
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                    color: T.GOLD_LIGHT, letterSpacing: "0.14em", fontWeight: 700 }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <FormatIcon code={code} dark />
-                </div>
-                <div>
-                  <div style={{ fontFamily: "var(--ff-display)", fontSize: 19,
-                    lineHeight: 1.2, marginBottom: 4, color: "#fff" }}>
-                    {item.titulo}
-                  </div>
-                  <div style={{ fontSize: 13, color: "rgba(255,255,255,0.6)",
-                    lineHeight: 1.45, fontFamily: "var(--ff-reading)" }}>
-                    {item.subtitulo}
-                  </div>
-                </div>
-                <div className="estudos-index-meta" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                  {item.formato && <FormatTag formato={item.formato} dark />}
-                  {item.tema    && <TemaPill tema={item.tema} dark />}
-                </div>
-                {item.profundidade && (
-                  <div className="estudos-index-meta">
-                    <ProfundidadePip level={item.profundidade} dark />
-                  </div>
-                )}
-              </div>
-            )})}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ RADAR TESOURO ═══ */}
-      <section id="radar" style={{ background: T.WHITE, borderBottom: `1px solid ${T.RULE}` }}>
-        <div className="section-inner">
-          <SectionHead
-            kicker="03 · Radar Tesouro"
-            title="Últimas notícias"
-            lede="Arrecadação, transição fiscal, IBS, CBS, FNDR e impactos nas finanças do Espírito Santo. Acompanhe o noticiário pelo olhar do Tesouro Estadual."
-            right={
-              <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.NAVY,
-                opacity: 0.6, letterSpacing: "0.04em" }}>
-                {radar.length} entradas
-              </span>
-            }
-          />
-
-          {/* Featured item */}
-          <div style={{ marginTop: 32, borderTop: `3px solid ${T.NAVY}`, paddingTop: 24,
-            borderBottom: `1px solid ${T.RULE}`, paddingBottom: 28 }}>
-            <div style={{ display: "flex", gap: 14, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
-              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.2em",
-                textTransform: "uppercase", color: T.TEAL, fontWeight: 700 }}>
-                {leadRadar.tag}
-              </span>
-              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.16em",
-                textTransform: "uppercase", color: "rgba(11,37,53,0.5)" }}>
-                {leadRadar.date} {leadRadar.month} &nbsp;·&nbsp; {leadRadar.fonte}
-              </span>
-            </div>
-            <h3 style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(22px,3vw,34px)",
-              lineHeight: 1.1, color: T.NAVY, letterSpacing: "-0.012em", margin: "0 0 14px" }}>
-              {leadRadar.titulo}
-            </h3>
-            <p style={{ fontFamily: "var(--ff-reading)", fontSize: 16, lineHeight: 1.55,
-              color: "rgba(11,37,53,0.75)", margin: "0 0 22px", maxWidth: 700 }}>
-              {leadRadar.descricao}
-            </p>
-            <button onClick={() => setModal(leadRadar)}
-              style={{ background: T.NAVY, color: "#fff", padding: "11px 18px",
-                fontFamily: "var(--ff-ui)", fontSize: 13, fontWeight: 600,
-                border: "none", cursor: "pointer",
-                display: "inline-flex", alignItems: "center", gap: 8 }}>
-              Ler análise completa
-              <span style={{ fontFamily: "var(--ff-mono)", fontWeight: 400 }}>→</span>
-            </button>
-          </div>
-
-          {/* Remaining items — same style as hero news list */}
-          <div>
-            {[secondRadar, ...restRadar].map((item) => (
-              <div key={item.slug} onClick={() => setModal(item)}
-                style={{ display: "flex", alignItems: "center", gap: 14,
-                  padding: "16px 0", borderBottom: `1px solid ${T.RULE}`, cursor: "pointer" }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.18em",
-                    textTransform: "uppercase", color: T.TEAL, fontWeight: 700, marginBottom: 4 }}>
-                    {item.tag} &nbsp;·&nbsp; {item.date} {item.month}
-                  </div>
-                  <div style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(16px,2vw,19px)",
-                    lineHeight: 1.25, color: T.NAVY, marginBottom: 4 }}>
-                    {item.titulo}
-                  </div>
-                  {item.descricao && (
-                    <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.5,
-                      color: "rgba(11,37,53,0.6)",
-                      display: "-webkit-box", WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                      {item.descricao}
-                    </div>
-                  )}
-                </div>
-                <div style={{ color: "rgba(11,37,53,0.28)", fontSize: 22, flexShrink: 0 }}>›</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ FOOTER ═══ */}
       <footer style={{ background: T.NAVY, color: "rgba(255,255,255,0.78)",
         padding: "56px 56px 24px" }}>
@@ -622,7 +569,7 @@ export default function Portal() {
             </div>
 
             {[
-              { t: "Áreas",        l: ["Base da Reforma", "Estudos e Capacitação", "Radar Tesouro"] },
+              { t: "Áreas",        l: ["Últimas Notícias", "Estudos e Vídeos", "Legislação e Normas"] },
               { t: "Institucional", l: ["SEFAZ-ES", "Tesouro Estadual", "Portal da Transparência"] },
               { t: "Governo",      l: ["Governo ES", "Diário Oficial ES", "Ministério da Fazenda"] },
             ].map((col) => (

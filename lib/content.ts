@@ -8,6 +8,7 @@ export interface ContentItem {
   fonte: string;
   formato?: string;
   url: string;
+  imageUrl?: string;
   youtubeId?: string;
   prazo?: string;
   janela?: string;
@@ -296,6 +297,7 @@ export const radar: ContentItem[] = [
     date: "20",
     month: "Mai",
     tag: "ES · Impacto Fiscal",
+    imageUrl: "https://uploads.folhavitoria.com.br/imagens/2026/05/qfUxDH51-4b891430-fc1d-11ee-a2ef-1b5df021d1af-minified-768x432-1-750x422.webp",
     titulo: "Setor atacadista do ES projeta perda de R$ 9,8 bilhões com a Reforma até 2033",
     descricao:
       "Estudo da Apex Research com o Sincades aponta que o atacado capixaba passou de 15% para 29% do ICMS estadual entre 2022 e 2025 — modelo baseado em incentivos que a Reforma extingue.",
@@ -309,6 +311,7 @@ export const radar: ContentItem[] = [
     date: "19",
     month: "Mai",
     tag: "ES · Governança",
+    imageUrl: "https://cdn2.tribunaonline.com.br/img/inline/300000/500x0/Reforma-tributaria-alianca-para-evitar-prejuizo-ao0030204700202605201653-7.webp?fallback=https%3A%2F%2Fcdn2.tribunaonline.com.br%2Fimg%2Finline%2F300000%2FReforma-tributaria-alianca-para-evitar-prejuizo-ao0030204700202605201653.jpg%3Fxid%3D1428012&xid=1428012",
     titulo: "Governador anuncia grupo de trabalho para mitigar impactos da Reforma no ES",
     descricao:
       "Ricardo Ferraço anuncia criação de grupo de trabalho para estudar alternativas ao modelo atacadista frente à extinção dos incentivos de ICMS.",
@@ -335,6 +338,7 @@ export const radar: ContentItem[] = [
     date: "13",
     month: "Abr",
     tag: "Fiscalização",
+    imageUrl: "https://portal.tcu.gov.br/_next/image?url=https%3A%2F%2Fportal.tcu.gov.br%2Fuploads%2Fnoticias%2Fimg%2F2026%2F04%2F13%2FWhatsApp_Image_2026-04-07_at_11.57.43_(1)_1_.jpeg&w=1200&q=75",
     titulo: "TCU visita Comitê Gestor do IBS e discute metodologia de distribuição de receitas",
     descricao:
       "O Tribunal de Contas da União explicitou seu papel na homologação de metodologias e cálculo das alíquotas de referência, além do diálogo com o CGIBS sobre credibilidade dos dados.",
