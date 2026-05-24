@@ -56,19 +56,6 @@ function ProfundidadePip({ level = "Introdutório", dark = false }: { level?: st
   );
 }
 
-function TemaPill({ tema = "", dark = false }: { tema?: string; dark?: boolean }) {
-  return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 6,
-      fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.18em",
-      textTransform: "uppercase",
-      color: dark ? "rgba(255,255,255,0.7)" : "rgba(26,80,104,0.95)", fontWeight: 600 }}>
-      <span style={{ width: 4, height: 4, transform: "rotate(45deg)",
-        background: dark ? "rgba(255,255,255,0.55)" : T.TEAL }} />
-      {tema}
-    </span>
-  );
-}
-
 function StatusFlag({ kind = "novo" }: { kind?: "novo" | "destaque" }) {
   if (kind === "destaque") {
     return (
@@ -113,14 +100,12 @@ function FormatIcon({ code, dark = false }: { code: string; dark?: boolean }) {
   );
 }
 
-// Compact section label — replaces the heavy SectionHead
+// Minimal section label (no border-top — section-rule handles that)
 function SectionKicker({
   label, count, countLabel = "itens", dark = false,
 }: { label: string; count?: number; countLabel?: string; dark?: boolean }) {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 16,
-      borderTop: `3px solid ${dark ? T.GOLD : T.NAVY}`, paddingTop: 10,
-      marginBottom: 32 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
       <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11, letterSpacing: "0.24em",
         textTransform: "uppercase", color: dark ? T.GOLD : T.NAVY, fontWeight: 700,
         whiteSpace: "nowrap" }}>
@@ -139,23 +124,15 @@ function SectionKicker({
   );
 }
 
-// Gold gradient divider between sections
-function SectionDivider() {
-  return (
-    <div style={{ height: 3,
-      background: "linear-gradient(90deg, transparent 0%, rgba(201,148,26,0.45) 25%, rgba(201,148,26,0.85) 50%, rgba(201,148,26,0.45) 75%, transparent 100%)" }} />
-  );
-}
-
 // ── Portal ─────────────────────────────────────────────────
 
-const NEWS_VISIBLE   = 3;
-const INDEX_VISIBLE  = 5;
+const NEWS_VISIBLE  = 3;
+const INDEX_VISIBLE = 5;
 
 export default function Portal() {
-  const [modal,          setModal]          = useState<ContentItem | null>(null);
-  const [newsExpanded,   setNewsExpanded]   = useState(false);
-  const [indexExpanded,  setIndexExpanded]  = useState(false);
+  const [modal,         setModal]         = useState<ContentItem | null>(null);
+  const [newsExpanded,  setNewsExpanded]  = useState(false);
+  const [indexExpanded, setIndexExpanded] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -166,7 +143,6 @@ export default function Portal() {
   const featuredVideo = estudos[0];
   const featuredBase  = base[0];
   const restBase      = base.slice(1);
-
   const visibleNews   = newsExpanded  ? radar   : radar.slice(0, NEWS_VISIBLE);
   const visibleIndex  = indexExpanded ? estudos : estudos.slice(0, INDEX_VISIBLE);
 
@@ -181,17 +157,6 @@ export default function Portal() {
 
       {/* ═══ NOTÍCIAS ═══ */}
       <div id="noticias" style={{ background: T.CREAM_LIGHT }}>
-
-        {/* Curadoria strip */}
-        <div className="hero-kicker">
-          <div style={{ flex: 1, height: 1, background: T.GOLD, opacity: 0.38 }} />
-          <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.26em",
-            textTransform: "uppercase", color: "rgba(11,37,53,0.48)", whiteSpace: "nowrap" }}>
-            Curadoria · Normas, Estudos e Notícias
-          </span>
-          <div style={{ flex: 1, height: 1, background: T.GOLD, opacity: 0.38 }} />
-        </div>
-
         <div className="hero-feed">
 
           {/* ── Featured video card ── */}
@@ -303,37 +268,24 @@ export default function Portal() {
         </div>
       </div>
 
-      <SectionDivider />
-
       {/* ═══ ESTUDOS E VÍDEOS ═══ */}
       <section id="estudos" style={{ background: T.NAVY, color: "#fff",
-        boxShadow: "0 -6px 24px rgba(0,0,0,0.18), 0 6px 24px rgba(0,0,0,0.18)" }}>
+        boxShadow: "0 -4px 20px rgba(0,0,0,0.2), 0 4px 20px rgba(0,0,0,0.2)" }}>
+        <div className="section-rule" />
         <div className="estudos-inner">
 
           <SectionKicker label="02 · Estudos e Vídeos de Capacitação"
             count={estudos.length} dark />
 
           {/* Video carousel with arrows */}
-          <div style={{ marginLeft: -56, marginRight: -56, position: "relative" }}>
-
-            {/* Prev arrow */}
+          <div className="carousel-outer">
             <button className="carousel-arrow carousel-arrow-prev"
-              onClick={() => scrollCarousel(-1)}
-              aria-label="Anterior">
-              ‹
-            </button>
-
-            {/* Next arrow */}
+              onClick={() => scrollCarousel(-1)} aria-label="Anterior">‹</button>
             <button className="carousel-arrow carousel-arrow-next"
-              onClick={() => scrollCarousel(1)}
-              aria-label="Próximo">
-              ›
-            </button>
+              onClick={() => scrollCarousel(1)} aria-label="Próximo">›</button>
 
-            <div ref={carouselRef}
-              style={{ overflowX: "auto", paddingLeft: 56, paddingBottom: 16,
-                scrollbarWidth: "none", scrollSnapType: "x mandatory" }}>
-              <div style={{ display: "flex", gap: 20, width: "max-content", paddingRight: 56 }}>
+            <div ref={carouselRef} className="carousel-scroll">
+              <div style={{ display: "flex", gap: 20, width: "max-content" }}>
                 {estudos.filter(e => e.youtubeId).map((item) => (
                   <div key={item.slug} onClick={() => setModal(item)}
                     style={{ width: 272, flexShrink: 0, cursor: "pointer",
@@ -345,7 +297,8 @@ export default function Portal() {
                         alt={item.titulo}
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                       />
-                      <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center",
+                      <div style={{ position: "absolute", inset: 0,
+                        display: "grid", placeItems: "center",
                         background: "rgba(11,37,53,0.28)" }}>
                         <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
                           <circle cx="22" cy="22" r="20" fill="rgba(0,0,0,0.55)"
@@ -404,8 +357,8 @@ export default function Portal() {
                           alt=""
                           style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                         />
-                        <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center",
-                          background: "rgba(11,37,53,0.3)" }}>
+                        <div style={{ position: "absolute", inset: 0, display: "grid",
+                          placeItems: "center", background: "rgba(11,37,53,0.3)" }}>
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                             <circle cx="10" cy="10" r="9" fill="rgba(0,0,0,0.5)"
                               stroke="rgba(232,184,75,0.6)" strokeWidth="0.8"/>
@@ -431,9 +384,16 @@ export default function Portal() {
                       {item.subtitulo}
                     </div>
                   </div>
-                  <div className="estudos-index-meta" style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <div className="estudos-index-meta"
+                    style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                     {item.formato && <FormatTag formato={item.formato} dark />}
-                    {item.tema    && <TemaPill tema={item.tema} dark />}
+                    {item.tema    && (
+                      <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
+                        letterSpacing: "0.14em", textTransform: "uppercase",
+                        color: "rgba(255,255,255,0.55)" }}>
+                        {item.tema}
+                      </span>
+                    )}
                   </div>
                   {item.profundidade && (
                     <div className="estudos-index-meta">
@@ -460,11 +420,10 @@ export default function Portal() {
         </div>
       </section>
 
-      <SectionDivider />
-
       {/* ═══ LEGISLAÇÃO E NORMAS ═══ */}
       <section id="base" style={{ background: T.CREAM_LIGHT,
-        boxShadow: "0 -6px 24px rgba(0,0,0,0.08)" }}>
+        boxShadow: "0 -4px 20px rgba(0,0,0,0.1)" }}>
+        <div className="section-rule" />
         <div className="section-inner">
 
           <SectionKicker label="03 · Legislação e Normas"
@@ -575,71 +534,45 @@ export default function Portal() {
 
       {/* ═══ FOOTER ═══ */}
       <footer style={{ background: T.NAVY, color: "rgba(255,255,255,0.78)",
-        padding: "56px 56px 24px" }}>
+        padding: "36px 56px 24px" }}>
         <div className="footer-inner">
-          <div className="footer-grid">
-            <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                <div style={{ width: 36, height: 44, background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  display: "grid", placeItems: "center", flexShrink: 0 }}>
-                  <svg width="20" height="26" viewBox="0 0 20 26" fill="none">
-                    <path d="M10 1 L19 4 V13 C19 19, 14 24, 10 25 C 6 24, 1 19, 1 13 V4 Z"
-                      stroke="#fff" strokeWidth="1" fill="none" />
-                    <circle cx="10" cy="12" r="3" stroke="#fff" strokeWidth="1" fill="none" />
-                  </svg>
-                </div>
-                <div>
-                  <div style={{ fontFamily: "var(--ff-display)", fontSize: 18,
-                    color: "#fff", lineHeight: 1.2 }}>
-                    Radar da Reforma Tributária
-                  </div>
-                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.55)",
-                    letterSpacing: "0.14em", textTransform: "uppercase", marginTop: 3,
-                    fontFamily: "var(--ff-mono)" }}>
-                    Tesouro Estadual · SEFAZ-ES
-                  </div>
-                </div>
-              </div>
-              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 14, lineHeight: 1.6,
-                color: "rgba(255,255,255,0.7)", margin: "0 0 18px", maxWidth: 380 }}>
-                Memória técnica do Tesouro Estadual sobre a Reforma Tributária do consumo
-                — vista pelo Espírito Santo.
-              </p>
-              <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.8,
-                color: "rgba(255,255,255,0.55)" }}>
-                <div>Secretaria da Fazenda do Estado do Espírito Santo</div>
-                <div>Av. João Batista Parra, 600 — Enseada do Suá</div>
-                <div>Vitória – ES · CEP 29050-375</div>
-                <a href="mailto:subset@sefaz.es.gov.br"
-                  style={{ color: T.GOLD_LIGHT, textDecoration: "none",
-                    marginTop: 6, display: "block" }}>
-                  subset@sefaz.es.gov.br
-                </a>
-              </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+            <div style={{ width: 32, height: 38, background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.18)",
+              display: "grid", placeItems: "center", flexShrink: 0 }}>
+              <svg width="18" height="22" viewBox="0 0 20 26" fill="none">
+                <path d="M10 1 L19 4 V13 C19 19, 14 24, 10 25 C 6 24, 1 19, 1 13 V4 Z"
+                  stroke="#fff" strokeWidth="1" fill="none" />
+                <circle cx="10" cy="12" r="3" stroke="#fff" strokeWidth="1" fill="none" />
+              </svg>
             </div>
             <div>
-              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                letterSpacing: "0.22em", textTransform: "uppercase",
-                color: T.GOLD_LIGHT, fontWeight: 700, marginBottom: 16 }}>
-                Institucional
+              <div style={{ fontFamily: "var(--ff-display)", fontSize: 16,
+                color: "#fff", lineHeight: 1.2 }}>
+                Radar da Reforma Tributária
               </div>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                {["SEFAZ-ES", "Tesouro Estadual"].map((label) => (
-                  <li key={label} style={{ marginBottom: 10 }}>
-                    <a href="#" style={{ color: "rgba(255,255,255,0.78)",
-                      textDecoration: "none", fontSize: 14,
-                      fontFamily: "var(--ff-reading)" }}>
-                      {label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.14em", textTransform: "uppercase", marginTop: 2,
+                fontFamily: "var(--ff-mono)" }}>
+                Tesouro Estadual · SEFAZ-ES
+              </div>
             </div>
           </div>
-          <div style={{ paddingTop: 22, fontFamily: "var(--ff-mono)", fontSize: 11,
+          <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.75,
+            color: "rgba(255,255,255,0.5)", marginBottom: 6 }}>
+            Secretaria da Fazenda do Estado do Espírito Santo &nbsp;·&nbsp;
+            Vitória – ES
+          </div>
+          <a href="mailto:subset@sefaz.es.gov.br"
+            style={{ fontFamily: "var(--ff-mono)", fontSize: 12, color: T.GOLD_LIGHT,
+              textDecoration: "none", letterSpacing: "0.04em" }}>
+            subset@sefaz.es.gov.br
+          </a>
+          <div style={{ marginTop: 20, paddingTop: 16,
+            borderTop: "1px solid rgba(255,255,255,0.1)",
+            fontFamily: "var(--ff-mono)", fontSize: 10,
             letterSpacing: "0.18em", textTransform: "uppercase",
-            color: "rgba(255,255,255,0.5)" }}>
+            color: "rgba(255,255,255,0.35)" }}>
             © 2026 · Governo do Estado do Espírito Santo · SEFAZ-ES
           </div>
         </div>

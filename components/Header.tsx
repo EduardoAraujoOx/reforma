@@ -88,8 +88,7 @@ export default function Header() {
 
       <header style={{ background: T.NAVY, height: 58, position: "sticky",
         top: 0, zIndex: 100, boxShadow: "0 1px 0 rgba(201,148,26,.18), 0 4px 24px rgba(0,0,0,.28)" }}>
-        <div style={{ maxWidth: 1060, margin: "0 auto", height: "100%",
-          display: "flex", alignItems: "center", padding: "0 56px", gap: 20 }}>
+        <div className="header-inner">
 
           {/* Hamburger (mobile only) */}
           <button className="hamburger" onClick={() => setDrawerOpen(true)}
