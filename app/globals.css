@@ -117,6 +117,7 @@ body {
 .hero-feat { border: 1px solid #E2D9CE; overflow: hidden; cursor: pointer; }
 .hero-feat:hover { border-color: #B8A99A; }
 .hero-feat-body { padding: 22px 24px 26px; }
+.hero-nlist { /* news list; padding added on mobile */ }
 .hero-nitem {
   display: flex; align-items: center; gap: 14px;
   padding: 15px 0; border-bottom: 1px solid #E2D9CE;
@@ -179,6 +180,7 @@ body {
   .hero-kicker       { padding: 0 20px; }
   .hero-feed         { grid-template-columns: 1fr; padding: 0 0 28px; gap: 0; }
   .hero-feat-body    { padding: 18px 20px 22px; }
+  .hero-nlist        { padding: 0 20px; }
   .dateline-right    { display: none !important; }
   .hero-stats        { flex-wrap: wrap; gap: 16px !important; }
   .section-inner     { padding: 48px 20px 56px; }

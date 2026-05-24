@@ -238,7 +238,7 @@ export default function Portal() {
           </div>
 
           {/* ── News list ── */}
-          <div>
+          <div className="hero-nlist">
             <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.24em",
               textTransform: "uppercase", color: T.NAVY, fontWeight: 700,
               paddingBottom: 12, borderBottom: `2px solid ${T.NAVY}`,
@@ -511,12 +511,12 @@ export default function Portal() {
       </section>
 
       {/* ═══ RADAR TESOURO ═══ */}
-      <section id="radar" style={{ background: T.CREAM_LIGHT, borderBottom: `1px solid ${T.RULE}` }}>
+      <section id="radar" style={{ background: T.WHITE, borderBottom: `1px solid ${T.RULE}` }}>
         <div className="section-inner">
           <SectionHead
             kicker="03 · Radar Tesouro"
             title="Últimas notícias"
-            lede="Arrecadação, transição fiscal, IBS, CBS, FNDR, Comitê Gestor e impactos nas finanças do Espírito Santo. O Radar acompanha o noticiário fiscal pelo olhar do Tesouro Estadual."
+            lede="Arrecadação, transição fiscal, IBS, CBS, FNDR e impactos nas finanças do Espírito Santo. Acompanhe o noticiário pelo olhar do Tesouro Estadual."
             right={
               <span style={{ fontSize: 12, fontFamily: "var(--ff-ui)", color: T.NAVY,
                 opacity: 0.6, letterSpacing: "0.04em" }}>
@@ -525,114 +525,62 @@ export default function Portal() {
             }
           />
 
-          {/* Ticker */}
-          <div style={{ marginTop: 28, padding: "12px 18px", border: `1px solid ${T.RULE}`,
-            background: "#fff", display: "flex", alignItems: "center", gap: 22,
-            overflow: "hidden", fontFamily: "var(--ff-mono)", fontSize: 11,
-            letterSpacing: "0.16em", textTransform: "uppercase" }}>
-            <span style={{ color: "#fff", background: T.NAVY, padding: "5px 10px",
-              fontWeight: 700, flexShrink: 0, display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ width: 6, height: 6, background: T.GOLD, borderRadius: 99 }} />
-              Ticker
-            </span>
-            {radar.slice(0, 3).map((item, i) => (
-              <span key={item.slug} style={{ color: T.TEAL, fontWeight: 700, flexShrink: 0 }}>
-                {item.date} {item.month} · {item.titulo.slice(0, 52)}…
-                {i < 2 && <span style={{ color: "rgba(11,37,53,0.2)", margin: "0 18px" }}>|</span>}
+          {/* Featured item */}
+          <div style={{ marginTop: 32, borderTop: `3px solid ${T.NAVY}`, paddingTop: 24,
+            borderBottom: `1px solid ${T.RULE}`, paddingBottom: 28 }}>
+            <div style={{ display: "flex", gap: 14, marginBottom: 12, flexWrap: "wrap", alignItems: "center" }}>
+              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.2em",
+                textTransform: "uppercase", color: T.TEAL, fontWeight: 700 }}>
+                {leadRadar.tag}
               </span>
-            ))}
-            <span style={{ marginLeft: "auto", color: "rgba(11,37,53,0.45)", flexShrink: 0 }}>
-              + {radar.length} no histórico
-            </span>
+              <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.16em",
+                textTransform: "uppercase", color: "rgba(11,37,53,0.5)" }}>
+                {leadRadar.date} {leadRadar.month} &nbsp;·&nbsp; {leadRadar.fonte}
+              </span>
+            </div>
+            <h3 style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(22px,3vw,34px)",
+              lineHeight: 1.1, color: T.NAVY, letterSpacing: "-0.012em", margin: "0 0 14px" }}>
+              {leadRadar.titulo}
+            </h3>
+            <p style={{ fontFamily: "var(--ff-reading)", fontSize: 16, lineHeight: 1.55,
+              color: "rgba(11,37,53,0.75)", margin: "0 0 22px", maxWidth: 700 }}>
+              {leadRadar.descricao}
+            </p>
+            <button onClick={() => setModal(leadRadar)}
+              style={{ background: T.NAVY, color: "#fff", padding: "11px 18px",
+                fontFamily: "var(--ff-ui)", fontSize: 13, fontWeight: 600,
+                border: "none", cursor: "pointer",
+                display: "inline-flex", alignItems: "center", gap: 8 }}>
+              Ler análise completa
+              <span style={{ fontFamily: "var(--ff-mono)", fontWeight: 400 }}>→</span>
+            </button>
           </div>
 
-          {/* Lead + secondary */}
-          <div className="radar-main">
-            <article>
-              <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 12, flexWrap: "wrap" }}>
-                <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                  letterSpacing: "0.2em", textTransform: "uppercase",
-                  color: T.TEAL, fontWeight: 700 }}>
-                  {leadRadar.tag}
-                </span>
-                <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                  letterSpacing: "0.18em", textTransform: "uppercase",
-                  color: "rgba(11,37,53,0.55)" }}>
-                  {leadRadar.date} {leadRadar.month} · {leadRadar.fonte}
-                </span>
-              </div>
-              <h3 style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(22px,3vw,34px)",
-                lineHeight: 1.1, color: T.NAVY, letterSpacing: "-0.012em", margin: "0 0 16px" }}>
-                {leadRadar.titulo}
-              </h3>
-              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 16, lineHeight: 1.55,
-                color: "rgba(11,37,53,0.78)", margin: "0 0 18px" }}>
-                {leadRadar.descricao}
-              </p>
-              <button onClick={() => setModal(leadRadar)}
-                style={{ fontFamily: "var(--ff-ui)", fontSize: 14, fontWeight: 600,
-                  color: T.NAVY, background: "none", border: "none", cursor: "pointer",
-                  borderBottom: `1px solid ${T.NAVY}`, paddingBottom: 2 }}>
-                Ler análise completa →
-              </button>
-            </article>
-
-            <article style={{ paddingLeft: 28, borderLeft: `1px solid ${T.RULE}` }}>
-              <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 10, flexWrap: "wrap" }}>
-                <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                  letterSpacing: "0.2em", textTransform: "uppercase",
-                  color: T.GOLD, fontWeight: 700 }}>
-                  {secondRadar.tag}
-                </span>
-                <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11,
-                  letterSpacing: "0.18em", textTransform: "uppercase",
-                  color: "rgba(11,37,53,0.55)" }}>
-                  {secondRadar.date} {secondRadar.month}
-                </span>
-              </div>
-              <h3 style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(18px,2.5vw,24px)",
-                lineHeight: 1.15, color: T.NAVY, margin: "0 0 12px" }}>
-                {secondRadar.titulo}
-              </h3>
-              <p style={{ fontFamily: "var(--ff-reading)", fontSize: 14, lineHeight: 1.55,
-                color: "rgba(11,37,53,0.7)", margin: "0 0 14px" }}>
-                {secondRadar.descricao}
-              </p>
-              <button onClick={() => setModal(secondRadar)}
-                style={{ fontFamily: "var(--ff-ui)", fontSize: 13, fontWeight: 600,
-                  color: T.NAVY, background: "none", border: "none", cursor: "pointer",
-                  borderBottom: `1px solid ${T.NAVY}`, paddingBottom: 2 }}>
-                Ler mais →
-              </button>
-              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.2em",
-                textTransform: "uppercase", color: "rgba(11,37,53,0.55)", marginTop: 12 }}>
-                Fonte · {secondRadar.fonte}
-              </div>
-            </article>
-          </div>
-
-          {/* Remaining grid */}
-          <div className="radar-rest">
-            {restRadar.map((item) => (
+          {/* Remaining items — same style as hero news list */}
+          <div>
+            {[secondRadar, ...restRadar].map((item) => (
               <div key={item.slug} onClick={() => setModal(item)}
-                style={{ padding: "20px 0", borderTop: `1px solid ${T.RULE}`, cursor: "pointer" }}>
-                <div style={{ display: "flex", justifyContent: "space-between",
-                  alignItems: "center", marginBottom: 8, gap: 8 }}>
-                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                    letterSpacing: "0.2em", textTransform: "uppercase",
-                    color: T.TEAL, fontWeight: 700 }}>
-                    {item.tag}
-                  </span>
-                  <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10,
-                    letterSpacing: "0.18em", textTransform: "uppercase",
-                    color: "rgba(11,37,53,0.5)" }}>
-                    {item.date} {item.month}
-                  </span>
+                style={{ display: "flex", alignItems: "center", gap: 14,
+                  padding: "16px 0", borderBottom: `1px solid ${T.RULE}`, cursor: "pointer" }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: T.TEAL, fontWeight: 700, marginBottom: 4 }}>
+                    {item.tag} &nbsp;·&nbsp; {item.date} {item.month}
+                  </div>
+                  <div style={{ fontFamily: "var(--ff-display)", fontSize: "clamp(16px,2vw,19px)",
+                    lineHeight: 1.25, color: T.NAVY, marginBottom: 4 }}>
+                    {item.titulo}
+                  </div>
+                  {item.descricao && (
+                    <div style={{ fontFamily: "var(--ff-reading)", fontSize: 13, lineHeight: 1.5,
+                      color: "rgba(11,37,53,0.6)",
+                      display: "-webkit-box", WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                      {item.descricao}
+                    </div>
+                  )}
                 </div>
-                <div style={{ fontFamily: "var(--ff-display)", fontSize: 20,
-                  lineHeight: 1.18, color: T.NAVY }}>
-                  {item.titulo}
-                </div>
+                <div style={{ color: "rgba(11,37,53,0.28)", fontSize: 22, flexShrink: 0 }}>›</div>
               </div>
             ))}
           </div>
