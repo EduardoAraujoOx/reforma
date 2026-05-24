@@ -1,0 +1,300 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 560" role="img" aria-labelledby="title desc">
+  <title id="title">Radar da Reforma Tributária</title>
+  <desc id="desc">Mapa estilizado do Brasil com radar animado a partir do Espírito Santo e pontos surgindo pelo país.</desc>
+
+  <defs>
+    <radialGradient id="bg" cx="56%" cy="47%" r="74%">
+      <stop offset="0%" stop-color="#103247"/>
+      <stop offset="48%" stop-color="#0B2636"/>
+      <stop offset="100%" stop-color="#061B28"/>
+    </radialGradient>
+
+    <linearGradient id="beamGradient" x1="100%" y1="50%" x2="0%" y2="50%">
+      <stop offset="0%" stop-color="#F4BC3A" stop-opacity="0.68"/>
+      <stop offset="34%" stop-color="#F4BC3A" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#F4BC3A" stop-opacity="0"/>
+    </linearGradient>
+
+    <radialGradient id="goldGlow">
+      <stop offset="0%" stop-color="#FFE49A" stop-opacity="1"/>
+      <stop offset="38%" stop-color="#F4BC3A" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#F4BC3A" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="glow" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.22"/>
+    </filter>
+
+    <clipPath id="brasilClip">
+      <path id="brasilShapeClip" d="M102,171 L126,158 L150,166 L166,143 L193,154 L218,141 L240,158 L261,151 L285,170 L313,173 L326,197 L345,207 L349,235 L338,260 L344,291 L330,315 L333,343 L314,363 L301,391 L277,403 L271,431 L246,437 L231,465 L206,451 L191,420 L164,409 L152,379 L124,374 L112,347 L91,332 L92,298 L71,278 L75,248 L59,224 L74,200 Z"/>
+    </clipPath>
+  </defs>
+
+  <style>
+    :root {
+      --navy: #071F2D;
+      --ink: #F4F1E8;
+      --gold: #F4BC3A;
+      --line: #7FB4CA;
+      --line-dim: #416C7F;
+    }
+
+    svg {
+      background: transparent;
+      overflow: visible;
+    }
+
+    .panel-bg {
+      fill: url(#bg);
+    }
+
+    .eyebrow {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      fill: var(--gold);
+    }
+
+    .headline {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 28px;
+      font-weight: 700;
+      fill: var(--ink);
+      letter-spacing: -0.8px;
+    }
+
+    .map-fill {
+      fill: rgba(13, 52, 72, 0.54);
+      stroke: var(--line);
+      stroke-width: 1.15;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      filter: url(#softShadow);
+    }
+
+    .state-line {
+      fill: none;
+      stroke: var(--line);
+      stroke-opacity: 0.58;
+      stroke-width: 0.72;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .coast-detail {
+      fill: none;
+      stroke: var(--line);
+      stroke-opacity: 0.28;
+      stroke-width: 0.42;
+      stroke-linecap: round;
+    }
+
+    .radar-ring, .crosshair {
+      fill: none;
+      stroke: var(--gold);
+      stroke-opacity: 0.28;
+      stroke-width: 0.72;
+      stroke-dasharray: 3 5;
+    }
+
+    .pulse-ring {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1;
+      stroke-opacity: 0.52;
+      animation: pulseRing 3.8s ease-out infinite;
+      transform-origin: 306px 350px;
+    }
+
+    .pulse-ring.r2 { animation-delay: 1.2s; }
+    .pulse-ring.r3 { animation-delay: 2.4s; }
+
+    .beam {
+      fill: url(#beamGradient);
+      opacity: 0.82;
+      mix-blend-mode: screen;
+    }
+
+    #sweep {
+      transform-origin: 306px 350px;
+      animation: sweep 7.5s linear infinite;
+    }
+
+    .signal {
+      fill: #FFD36A;
+      filter: url(#glow);
+      opacity: 0;
+      animation: blink 6s ease-in-out infinite;
+    }
+
+    .d1 { animation-delay: 0.1s; }
+    .d2 { animation-delay: 0.6s; }
+    .d3 { animation-delay: 1.1s; }
+    .d4 { animation-delay: 1.7s; }
+    .d5 { animation-delay: 2.2s; }
+    .d6 { animation-delay: 2.9s; }
+    .d7 { animation-delay: 3.4s; }
+    .d8 { animation-delay: 3.9s; }
+    .d9 { animation-delay: 4.5s; }
+    .d10 { animation-delay: 5.0s; }
+    .d11 { animation-delay: 5.5s; }
+
+    .es-fill {
+      fill: rgba(244,188,58,0.34);
+      stroke: #F4BC3A;
+      stroke-width: 1.25;
+      filter: url(#glow);
+    }
+
+    .es-node {
+      fill: #FFE49A;
+      stroke: #F4BC3A;
+      stroke-width: 1.2;
+      filter: url(#glow);
+      animation: esPulse 2.2s ease-in-out infinite;
+    }
+
+    .es-label {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      fill: #F4BC3A;
+    }
+
+    @keyframes sweep {
+      0% { transform: rotate(-45deg); opacity: 0.48; }
+      10% { opacity: 0.78; }
+      50% { opacity: 0.68; }
+      100% { transform: rotate(315deg); opacity: 0.48; }
+    }
+
+    @keyframes blink {
+      0%, 18%, 100% { opacity: 0.16; transform: scale(0.82); }
+      32% { opacity: 1; transform: scale(1.25); }
+      44% { opacity: 0.48; transform: scale(1); }
+    }
+
+    @keyframes esPulse {
+      0%, 100% { opacity: 0.78; transform: scale(0.92); }
+      50% { opacity: 1; transform: scale(1.18); }
+    }
+
+    @keyframes pulseRing {
+      0% { r: 8; opacity: 0.58; }
+      70% { r: 58; opacity: 0.04; }
+      100% { r: 62; opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #sweep, .signal, .es-node, .pulse-ring { animation: none; opacity: 0.8; }
+    }
+  </style>
+
+  <rect class="panel-bg" x="0" y="0" width="420" height="560" rx="0"/>
+
+  <g id="copy">
+    <text class="eyebrow" x="24" y="34">RADAR DA REFORMA TRIBUTÁRIA</text>
+    <text class="headline" x="24" y="73">
+      <tspan x="24" dy="0">Normas, estudos e notícias</tspan>
+      <tspan x="24" dy="34">sobre IBS de interesse do</tspan>
+      <tspan x="24" dy="34">Estado do Espírito Santo</tspan>
+    </text>
+  </g>
+
+  <g id="radar-grid" opacity="0.9">
+    <line class="crosshair" x1="306" y1="135" x2="306" y2="528"/>
+    <line class="crosshair" x1="37" y1="350" x2="407" y2="350"/>
+    <circle class="radar-ring" cx="306" cy="350" r="34"/>
+    <circle class="radar-ring" cx="306" cy="350" r="72"/>
+    <circle class="radar-ring" cx="306" cy="350" r="116"/>
+    <circle class="radar-ring" cx="306" cy="350" r="164"/>
+    <circle class="radar-ring" cx="306" cy="350" r="218"/>
+  </g>
+
+  <g id="sweep" clip-path="url(#brasilClip)">
+    <path class="beam" d="M306,350 L89,230 A246,246 0 0 1 126,427 Z"/>
+  </g>
+
+  <g id="map" transform="translate(0 4)">
+    <path class="map-fill" d="M102,171 L126,158 L150,166 L166,143 L193,154 L218,141 L240,158 L261,151 L285,170 L313,173 L326,197 L345,207 L349,235 L338,260 L344,291 L330,315 L333,343 L314,363 L301,391 L277,403 L271,431 L246,437 L231,465 L206,451 L191,420 L164,409 L152,379 L124,374 L112,347 L91,332 L92,298 L71,278 L75,248 L59,224 L74,200 Z"/>
+
+    <!-- linhas internas estilizadas das UFs: decorativas, baseadas na disposição relativa dos estados -->
+    <path class="state-line" d="M102,171 L111,206 L96,235 L114,260 L112,293"/>
+    <path class="state-line" d="M126,158 L136,190 L164,200 L179,170 L193,154"/>
+    <path class="state-line" d="M136,190 L121,227 L145,246 L176,230 L164,200"/>
+    <path class="state-line" d="M121,227 L92,248 L112,274 L145,246"/>
+    <path class="state-line" d="M176,230 L194,252 L185,285 L151,288 L145,246"/>
+    <path class="state-line" d="M194,252 L219,239 L239,260 L230,291 L185,285"/>
+    <path class="state-line" d="M218,141 L221,180 L204,205 L219,239"/>
+    <path class="state-line" d="M240,158 L239,192 L264,205 L285,170"/>
+    <path class="state-line" d="M264,205 L292,201 L313,173"/>
+    <path class="state-line" d="M264,205 L255,241 L283,257 L305,235 L292,201"/>
+    <path class="state-line" d="M305,235 L326,197 L345,207"/>
+    <path class="state-line" d="M305,235 L334,242 L338,260"/>
+    <path class="state-line" d="M283,257 L303,281 L334,277 L338,260"/>
+    <path class="state-line" d="M303,281 L286,314 L315,322 L330,315"/>
+    <path class="state-line" d="M239,260 L268,288 L286,314"/>
+    <path class="state-line" d="M230,291 L245,328 L286,314"/>
+    <path class="state-line" d="M185,285 L194,323 L230,291"/>
+    <path class="state-line" d="M151,288 L164,325 L194,323"/>
+    <path class="state-line" d="M112,293 L136,323 L164,325"/>
+    <path class="state-line" d="M91,332 L124,340 L136,323"/>
+    <path class="state-line" d="M124,340 L152,379"/>
+    <path class="state-line" d="M164,325 L190,352 L194,323"/>
+    <path class="state-line" d="M190,352 L229,348 L245,328"/>
+    <path class="state-line" d="M229,348 L250,370 L286,360 L315,322"/>
+    <path class="state-line" d="M250,370 L246,405 L277,403"/>
+    <path class="state-line" d="M229,348 L211,386 L246,405"/>
+    <path class="state-line" d="M164,409 L191,420 L211,386"/>
+    <path class="state-line" d="M191,420 L206,451"/>
+    <path class="state-line" d="M206,451 L231,465 L246,437"/>
+    <path class="state-line" d="M246,405 L246,437"/>
+    <path class="state-line" d="M286,360 L301,391"/>
+    <path class="state-line" d="M301,391 L314,363 L333,343"/>
+    <path class="state-line" d="M286,314 L286,360"/>
+    <path class="coast-detail" d="M345,207 C334,220 339,235 331,252 C321,274 326,292 316,310 C307,325 313,344 302,358 C292,373 292,390 277,403"/>
+
+    <!-- Espírito Santo posicionado abaixo da BA, acima do RJ e a leste de MG -->
+    <path class="es-fill" d="M306,327 L317,333 L318,354 L309,369 L300,361 L299,340 Z"/>
+  </g>
+
+  <g id="signals">
+    <circle class="signal d1" cx="144" cy="184" r="2.1"/>
+    <circle class="signal d2" cx="202" cy="184" r="2"/>
+    <circle class="signal d3" cx="242" cy="196" r="2.2"/>
+    <circle class="signal d4" cx="321" cy="219" r="2.1"/>
+    <circle class="signal d5" cx="341" cy="252" r="2"/>
+    <circle class="signal d6" cx="268" cy="260" r="2.2"/>
+    <circle class="signal d7" cx="217" cy="287" r="2.1"/>
+    <circle class="signal d8" cx="151" cy="292" r="2.3"/>
+    <circle class="signal d9" cx="98" cy="307" r="2.1"/>
+    <circle class="signal d10" cx="192" cy="360" r="2.2"/>
+    <circle class="signal d11" cx="241" cy="377" r="2.1"/>
+    <circle class="signal d4" cx="235" cy="426" r="2.2"/>
+    <circle class="signal d7" cx="208" cy="468" r="2.1"/>
+    <circle class="signal d2" cx="176" cy="413" r="2.1"/>
+    <circle class="signal d6" cx="285" cy="335" r="2.1"/>
+    <circle class="signal d9" cx="292" cy="294" r="2"/>
+    <circle class="signal d3" cx="128" cy="236" r="2"/>
+    <circle class="signal d8" cx="76" cy="274" r="2.1"/>
+  </g>
+
+  <g id="es-marker">
+    <circle class="pulse-ring" cx="306" cy="350" r="8"/>
+    <circle class="pulse-ring r2" cx="306" cy="350" r="8"/>
+    <circle class="pulse-ring r3" cx="306" cy="350" r="8"/>
+    <circle cx="306" cy="350" r="12" fill="url(#goldGlow)" opacity="0.86"/>
+    <circle class="es-node" cx="306" cy="350" r="4.6"/>
+    <text class="es-label" x="325" y="355">ES</text>
+  </g>
+</svg>
