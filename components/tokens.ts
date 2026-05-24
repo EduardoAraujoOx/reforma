@@ -1,0 +1,16 @@
+export const T = {
+  NAVY:       "#0B2535",
+  NAVY_SOFT:  "#163749",
+  TEAL:       "#1A5068",
+  TEAL_DARK:  "#0d3d52",
+  GOLD:       "#C9941A",
+  GOLD_LIGHT: "#E8B84B",
+  CREAM:      "#F5F0E6",
+  CREAM_LIGHT:"#FAF7F2",
+  WHITE:      "#FFFFFF",
+  INK:        "#1A1410",
+  MID:        "#4A6070",
+  LIGHT:      "#8FA5B2",
+  BORDER:     "#D6E4EC",
+  RULE:       "rgba(11,37,53,0.14)",
+} as const;
