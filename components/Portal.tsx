@@ -537,15 +537,9 @@ export default function Portal() {
         padding: "36px 56px 24px" }}>
         <div className="footer-inner">
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-            <div style={{ width: 32, height: 38, background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.18)",
-              display: "grid", placeItems: "center", flexShrink: 0 }}>
-              <svg width="18" height="22" viewBox="0 0 20 26" fill="none">
-                <path d="M10 1 L19 4 V13 C19 19, 14 24, 10 25 C 6 24, 1 19, 1 13 V4 Z"
-                  stroke="#fff" strokeWidth="1" fill="none" />
-                <circle cx="10" cy="12" r="3" stroke="#fff" strokeWidth="1" fill="none" />
-              </svg>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/tesouro-logo.webp" alt="Tesouro Estadual ES"
+              style={{ height: 44, width: "auto", flexShrink: 0, opacity: 0.9 }} />
             <div>
               <div style={{ fontFamily: "var(--ff-display)", fontSize: 16,
                 color: "#fff", lineHeight: 1.2 }}>

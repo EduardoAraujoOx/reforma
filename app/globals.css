@@ -177,7 +177,7 @@ body {
 }
 
 /* ── Mobile ── */
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .hamburger    { display: flex !important; }
   .nav-desktop  { display: none  !important; }
   .header-inner { padding: 0 16px; }
